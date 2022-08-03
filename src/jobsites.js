@@ -401,7 +401,7 @@ const industryTags = [
   "Everything",
   "BioTech",
   "Biology",
-  "Chemisty",
+  "Chemistry",
   "Data Science",
   "Finance",
   "Human Resources",
@@ -415,6 +415,8 @@ const industryTags = [
   "Design",
 ];
 
+var filters = [];
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
     CreateJobSiteTable(); //Create List of Job Sites
@@ -422,6 +424,91 @@ onAuthStateChanged(auth, async (user) => {
     window.location.href = "index.html";
   }
 });
+
+const siteTable = document.querySelector("#sitestable");
+
+function CreateJobSiteTable() {
+  while(siteTable.firstChild){
+    siteTable.removeChild(siteTable.firstChild);
+  }
+  var tableBody = document.createElement("tbody");
+  for (var i = 0; i < sites.length; i++) {
+    var isIncluded = true;
+    for(var k = 0; k < filters.length; k++){
+      if(!sites[i].industries.includes(filters[k])){
+        isIncluded = false;
+      }
+    }
+    if(isIncluded || filters.length == 0 || sites[i].industries.includes("Everything")){
+      var tRow = document.createElement("tr");
+      tRow.setAttribute("id", "sitetablerow");
+      tRow.setAttribute("class", "clickable");
+      //Site Link
+      var siteLink = sites[i].link;
+      tRow.setAttribute("onclick", "window.open('" + siteLink + "','_blank')");
+
+      //Site Logo
+      var siteLogo = document.createElement("td");
+      siteLogo.setAttribute("id", "siteLogoTD");
+      var imageFigure = document.createElement("figure");
+      var siteImg = document.createElement("img");
+      siteImg.setAttribute("src", sites[i].logo);
+      siteImg.setAttribute("width", "500");
+      siteImg.setAttribute("height", "500");
+      imageFigure.appendChild(siteImg);
+      siteLogo.appendChild(imageFigure);
+
+      //Site Name
+      var siteName = document.createElement("td");
+      siteName.setAttribute("id", "siteNameTD");
+      siteName.textContent = sites[i].title;
+
+      //Site Description
+      var siteDesc = document.createElement("td");
+      siteDesc.textContent = sites[i].desc;
+
+      var siteTags = document.createElement("td");
+
+      for(var j = 0; j < sites[i].industries.length; j++){
+        var siteTag = document.createElement("span");
+        siteTag.classList.add("tag", "is-dark", "my-2");
+        siteTag.style.display = "flex";
+        siteTag.textContent = sites[i].industries[j];
+        siteTags.appendChild(siteTag);
+      }
+
+      tRow.appendChild(siteLogo);
+      tRow.appendChild(siteName);
+      tRow.appendChild(siteDesc);
+      tRow.appendChild(siteTags);
+      tableBody.appendChild(tRow);
+    }
+  }
+
+  siteTable.appendChild(tableBody);
+
+  renderTheme();
+}
+
+function addFilterTags(){
+  filters = [];
+  while(document.getElementById('filterTags').firstChild){
+    document.getElementById('filterTags').removeChild(document.getElementById('filterTags').firstChild);
+  }
+  for(var i = 0; i < industryTags.length; i++){
+    if(industryTags[i] == "Everything"){
+      continue;
+    }
+    if(document.getElementById('check' + industryTags[i].replace(/ /g, "")).checked){
+      filters.push(industryTags[i]);
+      var filterTag = document.createElement("span");
+      filterTag.classList.add("tag", "is-dark", "ml-1", "mr-2", "mb-2");
+      filterTag.textContent = industryTags[i];
+      document.getElementById('filterTags').appendChild(filterTag);
+    }
+  }
+  CreateJobSiteTable();
+}
 
 //Switch styles of objects to dark theme
 function renderTheme() {
@@ -434,18 +521,19 @@ function renderTheme() {
     document.getElementById("nightbutton").style.display = "none";
     document.getElementById("lightbutton").style.display = "flex";
     document.getElementById("html").style.backgroundColor = "#243B53";
-    document.getElementById("appTitle").style.color = "#BCCCDC";
-    document.getElementById("newAppTitle").style.color = "#BCCCDC";
-    document.getElementById("settingsTitle").style.color = "#BCCCDC";
     document.querySelector("nav").style.backgroundColor = "#102A43";
-    var cardContents = document.querySelectorAll(".card-content");
-    for (var i = 0; i < cardContents.length; i++) {
-      cardContents[i].style.backgroundColor = "#334E68";
+    document.querySelector('#filterDropdown').style.backgroundColor = "#102A43";
+    var h1texts = document.querySelectorAll("h1");
+    for (var i = 0; i < h1texts.length; i++) {
+      h1texts[i].style.color = "#BCCCDC";
     }
-    var cardFooters = document.querySelectorAll(".card-footer-item");
-    for (var i = 0; i < cardFooters.length; i++) {
-      cardFooters[i].style.backgroundColor = "#102A43";
-      cardFooters[i];
+    var h3texts = document.querySelectorAll("h3");
+    for (var i = 0; i < h3texts.length; i++) {
+      h3texts[i].style.color = "#BCCCDC";
+    }
+    var h5texts = document.querySelectorAll("h5");
+    for (var i = 0; i < h5texts.length; i++) {
+      h5texts[i].style.color = "#BCCCDC";
     }
     var pTexts = document.querySelectorAll("p");
     for (var i = 0; i < pTexts.length; i++) {
@@ -459,10 +547,6 @@ function renderTheme() {
     for (var i = 0; i < spanTexts.length; i++) {
       spanTexts[i].style.color = "#BCCCDC";
     }
-    var modalBgs = document.querySelectorAll(".modal-content");
-    for (var i = 0; i < modalBgs.length; i++) {
-      modalBgs[i].style.backgroundColor = "#243B53";
-    }
     var labelTexts = document.querySelectorAll("label");
     for (var i = 0; i < labelTexts.length; i++) {
       labelTexts[i].style.color = "#BCCCDC";
@@ -470,11 +554,6 @@ function renderTheme() {
     var h5Texts = document.querySelectorAll("h5");
     for (var i = 0; i < h5Texts.length; i++) {
       h5Texts[i].style.color = "#BCCCDC";
-    }
-    var modalHeaders = document.querySelectorAll("#viewModalHeader");
-    for (var i = 0; i < modalHeaders.length; i++) {
-      modalHeaders[i].style.backgroundColor = "#102A43";
-      modalHeaders[i].style.color = "#BCCCDC";
     }
     var tableHeaders = document.querySelectorAll("tr");
     for (var i = 0; i < tableHeaders.length; i++) {
@@ -495,50 +574,6 @@ function renderTheme() {
   }
 }
 
-const siteTable = document.querySelector("#sitestable");
-
-function CreateJobSiteTable() {
-  var tableBody = document.createElement("tbody");
-  for (var i = 0; i < sites.length; i++) {
-    var tRow = document.createElement("tr");
-    tRow.setAttribute("id", "sitetablerow");
-    tRow.setAttribute("class", "clickable");
-    //Site Link
-    var siteLink = sites[i].link;
-    tRow.setAttribute("onclick", "window.open('" + siteLink + "','_blank')");
-
-    //Site Logo
-    var siteLogo = document.createElement("td");
-    siteLogo.setAttribute("id", "siteLogoTD");
-    var imageFigure = document.createElement("figure");
-    var siteImg = document.createElement("img");
-    siteImg.setAttribute("src", sites[i].logo);
-    siteImg.setAttribute("width", "500");
-    siteImg.setAttribute("height", "500");
-    imageFigure.appendChild(siteImg);
-    siteLogo.appendChild(imageFigure);
-
-    //Site Name
-    var siteName = document.createElement("td");
-    siteName.setAttribute("id", "siteNameTD");
-    siteName.textContent = sites[i].title;
-
-    //Site Description
-    var siteDesc = document.createElement("td");
-    siteDesc.textContent = sites[i].desc;
-
-    tRow.appendChild(siteLogo);
-    tRow.appendChild(siteName);
-    tRow.appendChild(siteDesc);
-
-    tableBody.appendChild(tRow);
-  }
-
-  siteTable.appendChild(tableBody);
-
-  renderTheme();
-}
-
 function logout() {
   signOut(auth);
   window.location.href = "index.html";
@@ -546,6 +581,8 @@ function logout() {
 
 function setNightMode() {
   document.cookie = "theme=night";
+  document.getElementById("html").style.transition = "0.3s";
+  document.querySelector("nav").style.transition = "0.3s";
   renderTheme();
 }
 
@@ -554,4 +591,4 @@ function setLightMode() {
   location.reload();
 }
 
-export { logout, setLightMode, setNightMode };
+export { logout, setLightMode, setNightMode, addFilterTags };

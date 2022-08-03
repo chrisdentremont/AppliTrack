@@ -66,9 +66,173 @@
         </div>
 
         <div class="hero-body" id="title-body">
-            <h1 class="title">Good Job Sites for the Job Search</h1>
-            <div hidden class="notification is-danger" id="verifyemail">Please verify your email before adding any
-                applications.
+            <h1 class="title">Recommended Job Listing Websites</h1>
+            <div id="top-buttons">
+                <div class="dropdown is-hoverable" id="sortbutton">
+                    <div class="dropdown-trigger">
+                      <button class="button topbutton mr-2" aria-haspopup="true" aria-controls="dropdown-menu">
+                        <span class="icon is-small">
+                          <i class="fas fa-filter"></i>
+                        </span>
+                        <span>Filter</span>
+                      </button>
+                    </div>
+                    <div class="dropdown-menu" id="sort-menu" role="menu">
+                      <div class="dropdown-content" style="width:max-content" id="filterDropdown">
+                        <div class="columns">
+                            <div class="column is-half">
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkArchitecture" onclick="EntryPoint.addFilterTags()">
+                                        Architecture
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkEngineering" onclick="EntryPoint.addFilterTags()">
+                                        Engineering
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkComputerScience" onclick="EntryPoint.addFilterTags()">
+                                        Computer Science
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkDigitalDesign" onclick="EntryPoint.addFilterTags()">
+                                        Digital Design
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkProduct" onclick="EntryPoint.addFilterTags()">
+                                        Product
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkOperations" onclick="EntryPoint.addFilterTags()">
+                                        Operations
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkSales" onclick="EntryPoint.addFilterTags()">
+                                        Sales
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkLegal" onclick="EntryPoint.addFilterTags()">
+                                        Legal
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkEconomics" onclick="EntryPoint.addFilterTags()">
+                                        Economics
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkPsychology" onclick="EntryPoint.addFilterTags()">
+                                        Psychology
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkBusiness" onclick="EntryPoint.addFilterTags()">
+                                        Business
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkHealthCare" onclick="EntryPoint.addFilterTags()">
+                                        Healthcare
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkEducation" onclick="EntryPoint.addFilterTags()">
+                                        Education
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkLanguage" onclick="EntryPoint.addFilterTags()">
+                                        Language
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkDesign" onclick="EntryPoint.addFilterTags()">
+                                        Design
+                                      </label>
+                                </div>
+                            </div>
+                            <div class="column is-half">
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkMarketing" onclick="EntryPoint.addFilterTags()">
+                                        Marketing
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkManagement" onclick="EntryPoint.addFilterTags()">
+                                        Management
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkInteriorDesign" onclick="EntryPoint.addFilterTags()">
+                                        Interior Design
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkBioTech" onclick="EntryPoint.addFilterTags()">
+                                        BioTech
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkBiology" onclick="EntryPoint.addFilterTags()">
+                                        Biology
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkChemistry" onclick="EntryPoint.addFilterTags()">
+                                        Chemistry
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkDataScience" onclick="EntryPoint.addFilterTags()">
+                                        Data Science
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkFinance" onclick="EntryPoint.addFilterTags()">
+                                        Finance
+                                      </label>
+                                </div>
+                                <div class="dropdown-item">
+                                    <label class="checkbox">
+                                        <input type="checkbox" id="checkHumanResources" onclick="EntryPoint.addFilterTags()">
+                                        Human Resources
+                                      </label>
+                                </div>
+                            </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div id="filterTags"></div>
             </div>
         </div>
 
