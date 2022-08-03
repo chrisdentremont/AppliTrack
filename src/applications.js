@@ -114,7 +114,9 @@ function renderTheme() {
     }
     var cardContents = document.querySelectorAll(".card-content");
     for (var i = 0; i < cardContents.length; i++) {
-      cardContents[i].style.backgroundColor = "#334E68";
+      if(cardContents[i].style.backgroundColor == ""){
+        cardContents[i].style.backgroundColor = "#334E68";
+      }
     }
     var cardFooters = document.querySelectorAll(".card-footer-item");
     for (var i = 0; i < cardFooters.length; i++) {
@@ -122,6 +124,9 @@ function renderTheme() {
     }
     var pTexts = document.querySelectorAll("p");
     for (var i = 0; i < pTexts.length; i++) {
+      if(pTexts[i].parentElement.classList.contains('card-content') && pTexts[i].parentElement.style.backgroundColor != "rgb(51, 78, 104)"){
+        continue;
+      }
       pTexts[i].style.color = "#BCCCDC";
     }
     var topButtons = document.querySelectorAll(".topbutton");
@@ -834,31 +839,7 @@ function windowLoad(applications) {
     Object.keys(applicationObject).length +
     ")";
 
-  //Get sort cookie and see if cookies need to be sorted
-  let cookie = {};
-  document.cookie.split(";").forEach(function (el) {
-    let [key, value] = el.split("=");
-    cookie[key.trim()] = value;
-  });
-
-  if (cookie["sort"] == "az") {
-    appsToDisplay = appsToDisplay.sort(sortByAZ);
-  } else if (cookie["sort"] == "za") {
-    appsToDisplay = appsToDisplay.sort(sortByZA);
-  } else if (cookie["sort"] == "datemost") {
-    appsToDisplay = appsToDisplay.sort(sortByDateRecent);
-  } else if (cookie["sort"] == "dateleast") {
-    appsToDisplay = appsToDisplay.sort(sortByDateLeastRecent);
-  } else if (cookie["sort"] == "salaryhtol") {
-    appsToDisplay = appsToDisplay.sort(sortBySalaryHtoL);
-  } else if (cookie["sort"] == "salaryltoh") {
-    appsToDisplay = appsToDisplay.sort(sortBySalaryLtoH);
-  } else if (cookie["sort"] == "color") {
-    appsToDisplay = appsToDisplay.sort(sortByColor);
-  } else {
-    appsToDisplay = appsToDisplay.sort(sortByAZ);
-  }
-
+  appsToDisplay = appsToDisplay.sort(sortByAZ);
   DisplayApplicationCards(appsToDisplay);
 }
 
@@ -936,23 +917,23 @@ modalBg.addEventListener("click", () => {
  */
 function sortCards(method) {
   if (method == "az") {
-    document.cookie = "sort=az";
-  } else if (method == "datemost") {
-    document.cookie = "sort=datemost";
-  } else if (method == "salaryhtol") {
-    document.cookie = "sort=salaryhtol";
+    appsToDisplay = appsToDisplay.sort(sortByAZ);
   } else if (method == "za") {
-    document.cookie = "sort=za";
+    appsToDisplay = appsToDisplay.sort(sortByZA);
+  } else if (method == "datemost") {
+    appsToDisplay = appsToDisplay.sort(sortByDateRecent);
   } else if (method == "dateleast") {
-    document.cookie = "sort=dateleast";
+    appsToDisplay = appsToDisplay.sort(sortByDateLeastRecent);
+  } else if (method == "salaryhtol") {
+    appsToDisplay = appsToDisplay.sort(sortBySalaryHtoL);
   } else if (method == "salaryltoh") {
-    document.cookie = "sort=salaryltoh";
+    appsToDisplay = appsToDisplay.sort(sortBySalaryLtoH);
   } else if (method == "color") {
-    document.cookie = "sort=color";
+    appsToDisplay = appsToDisplay.sort(sortByColor);
   } else {
-    document.cookie = "sort=az";
+    appsToDisplay = appsToDisplay.sort(sortByAZ);
   }
-  location.reload();
+  DisplayApplicationCards(appsToDisplay);
 }
 
 settingsForm.addEventListener("submit", async (e) => {
@@ -1224,7 +1205,7 @@ function search_applications(selectValue) {
       let newApplications = [];
       for (var i = 0, element; (element = appsToDisplay[i++]); ) {
         let temp = element[1];
-        if (temp[0].substring(0, input.length).toLowerCase().includes(input)) {
+        if (temp[0].toLowerCase().includes(input.toLowerCase())) {
           newApplications.push(element);
         }
       }
@@ -1238,7 +1219,7 @@ function search_applications(selectValue) {
       let newApplications = [];
       for (var i = 0, element; (element = appsToDisplay[i++]); ) {
         let temp = element[1];
-        if (temp[1].substring(0, input.length).toLowerCase().includes(input)) {
+        if (temp[1].toLowerCase().includes(input.toLowerCase())) {
           newApplications.push(element);
         }
       }
@@ -1369,7 +1350,7 @@ function search_applications(selectValue) {
       let newApplications = [];
       for (var i = 0, element; (element = appsToDisplay[i++]); ) {
         let temp = element[1];
-        if (temp[10].substring(0, input.length).toLowerCase().includes(input)) {
+        if (temp[10].toLowerCase().includes(input.toLowerCase())) {
           newApplications.push(element);
         }
       }

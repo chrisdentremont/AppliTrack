@@ -467,20 +467,20 @@ function CreateJobSiteTable() {
       var siteDesc = document.createElement("td");
       siteDesc.textContent = sites[i].desc;
 
-      var siteTags = document.createElement("td");
+      var siteTags = document.createElement("span");
+      siteTags.style.display = "block";
 
       for(var j = 0; j < sites[i].industries.length; j++){
         var siteTag = document.createElement("span");
-        siteTag.classList.add("tag", "is-dark", "my-2");
-        siteTag.style.display = "flex";
+        siteTag.classList.add("tag", "is-dark", "my-2", "mr-2");
         siteTag.textContent = sites[i].industries[j];
         siteTags.appendChild(siteTag);
       }
 
       tRow.appendChild(siteLogo);
       tRow.appendChild(siteName);
+      siteDesc.appendChild(siteTags);
       tRow.appendChild(siteDesc);
-      tRow.appendChild(siteTags);
       tableBody.appendChild(tRow);
     }
   }
