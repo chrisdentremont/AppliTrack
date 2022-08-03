@@ -70,6 +70,10 @@ function renderTheme() {
     for (var i = 0; i < modalBgs.length; i++) {
       modalBgs[i].style.backgroundColor = "#243B53";
     }
+    var navbarItems = document.querySelectorAll(".navbar-item");
+    for (var i = 0; i < navbarItems.length; i++) {
+      navbarItems[i].style.color = "white";
+    }
   } else {
     document.getElementById("nightbutton").style.display = "flex";
     document.getElementById("lightbutton").style.display = "none";

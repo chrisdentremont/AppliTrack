@@ -125,6 +125,10 @@ function renderTheme() {
     for (var i = 0; i < cardFooters.length; i++) {
       cardFooters[i].style.backgroundColor = "#334E68";
     }
+    var navbarItems = document.querySelectorAll(".navbar-item");
+    for (var i = 0; i < navbarItems.length; i++) {
+      navbarItems[i].style.color = "white";
+    }
     var pTexts = document.querySelectorAll("p");
     for (var i = 0; i < pTexts.length; i++) {
       pTexts[i].style.color = "#BCCCDC";

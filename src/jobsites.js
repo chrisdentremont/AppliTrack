@@ -555,6 +555,10 @@ function renderTheme() {
     for (var i = 0; i < h5Texts.length; i++) {
       h5Texts[i].style.color = "#BCCCDC";
     }
+    var navbarItems = document.querySelectorAll(".navbar-item");
+    for (var i = 0; i < navbarItems.length; i++) {
+      navbarItems[i].style.color = "white";
+    }
     var tableHeaders = document.querySelectorAll("tr");
     for (var i = 0; i < tableHeaders.length; i++) {
       tableHeaders[i].style.backgroundColor = "#102A43";

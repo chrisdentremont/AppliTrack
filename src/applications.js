@@ -112,6 +112,10 @@ function renderTheme() {
     for (var i = 0; i < h5texts.length; i++) {
       h5texts[i].style.color = "#BCCCDC";
     }
+    var navbarItems = document.querySelectorAll(".navbar-item");
+    for (var i = 0; i < navbarItems.length; i++) {
+      navbarItems[i].style.color = "white";
+    }
     var cardContents = document.querySelectorAll(".card-content");
     for (var i = 0; i < cardContents.length; i++) {
       if(cardContents[i].style.backgroundColor == ""){
