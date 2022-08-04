@@ -12,7 +12,7 @@ import {
   GoogleAuthProvider,
   signInWithPopup,
 } from "firebase/auth";
-import { getFirestore, doc, setDoc } from "firebase/firestore";
+import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
@@ -272,10 +272,12 @@ function signInGoogle() {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const user = result.user;
-      var docRef = doc(db, "users", user.uid);
+      var docRef = getDoc(doc(db, "users", user.uid));
       if (docRef.exists) {
+        console.log("exists");
         location.reload();
       } else {
+        console.log("doesnt exist");
         var settings = {};
         settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
         setDoc(doc(db, "users", user.uid), settings).then(() => {
