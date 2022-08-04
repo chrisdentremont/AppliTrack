@@ -87,6 +87,9 @@ function renderTheme() {
     document.getElementById("newAppTitle").style.color = "#BCCCDC";
     document.getElementById("settingsTitle").style.color = "#BCCCDC";
     document.querySelector("nav").style.backgroundColor = "#102A43";
+    document.querySelector("nav").classList.remove('has-shadow');
+    document.querySelector("#sortContent").style.backgroundColor = "#102A43";
+    document.querySelector("#searchContent").style.backgroundColor = "#102A43";
     document.getElementById("addapplication").style.backgroundColor = "#00897B";
     document
       .getElementById("viewModalContent")
@@ -115,6 +118,7 @@ function renderTheme() {
     var navbarItems = document.querySelectorAll(".navbar-item");
     for (var i = 0; i < navbarItems.length; i++) {
       navbarItems[i].style.color = "white";
+      navbarItems[i].classList.add('nightmode');
     }
     var cardContents = document.querySelectorAll(".card-content");
     for (var i = 0; i < cardContents.length; i++) {
@@ -136,6 +140,10 @@ function renderTheme() {
     var topButtons = document.querySelectorAll(".topbutton");
     for (var i = 0; i < topButtons.length; i++) {
       topButtons[i].style.backgroundColor = "#334E68";
+    }
+    var dropdownItems = document.querySelectorAll(".dropdown-item");
+    for (var i = 0; i < dropdownItems.length; i++) {
+      dropdownItems[i].style.color = "#BCCCDC";
     }
     var spanTexts = document.querySelectorAll("span");
     for (var i = 0; i < spanTexts.length; i++) {

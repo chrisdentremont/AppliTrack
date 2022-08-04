@@ -18,7 +18,7 @@
         <div class="container">
           <div class="navbar-brand">
             <a href="index.html" class="navbar-item">
-              Appli<span style="color:darkcyan">Track</span>
+              Appli<div style="color:darkcyan">Track</div>
             </a>
           </div>
 
@@ -72,11 +72,6 @@
         <span>
           <h1 class="title has-text-centered is-1" id="nameText"></h1>
         </span>
-        <a onclick="EntryPoint.changeName()">
-          <span class="icon is-large">
-            <i class="fas fa-lg fa-pen"></i>
-          </span>
-        </a>
       </span>
 
       <br>
@@ -87,9 +82,13 @@
 
       <h2 class="title is-3">Email</h2>
       <p class="subtitle is-5" id="emailText"></p>
-
+      <p class="subtitle is-5" id="applicationText"></p>
       <br>
 
+      <button class="button is-link" onclick="EntryPoint.changeName()" id="changenamebutton">Change
+        Name</button>
+      <br>
+      <br>
       <button class="button is-link" onclick="EntryPoint.changePass()" id="changepassbutton">Change
         Password</button>
       <br>

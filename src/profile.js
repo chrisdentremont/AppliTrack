@@ -53,6 +53,7 @@ function renderTheme() {
       .classList.remove("has-background-white");
     document.getElementById("html").style.backgroundColor = "#243B53";
     document.querySelector("nav").style.backgroundColor = "#102A43";
+    document.querySelector("nav").classList.remove('has-shadow');
     document.querySelector(".box").style.backgroundColor = "#102A43";
     var titleTexts = document.querySelectorAll(".title");
     for (var i = 0; i < titleTexts.length; i++) {
@@ -73,6 +74,7 @@ function renderTheme() {
     var navbarItems = document.querySelectorAll(".navbar-item");
     for (var i = 0; i < navbarItems.length; i++) {
       navbarItems[i].style.color = "white";
+      navbarItems[i].classList.add('nightmode');
     }
   } else {
     document.getElementById("nightbutton").style.display = "flex";
@@ -108,6 +110,11 @@ onAuthStateChanged(auth, (user) => {
   if (user) {
     nameText.textContent = "Hello, " + user.displayName + "!";
     emailText.textContent = user.email;
+    getDoc(doc(db, "users", user.uid)).then((ref) => {
+      var applications = ref.data();
+      delete applications["userSettings"];
+      document.getElementById('applicationText').textContent = "" + Object.keys(applications).length + " Applications";
+    });
   } else {
     window.location.href = "index.html";
   }

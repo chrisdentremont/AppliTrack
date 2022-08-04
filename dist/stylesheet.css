@@ -68,6 +68,10 @@ html {
   background-color: blue;
 }
 
+.navbar-item.nightmode:hover{
+  background-color: black;
+}
+
 #navbarstart {
   padding-left: 3%;
 }

@@ -120,6 +120,7 @@ function renderTheme() {
     document.getElementById("footer").style.backgroundColor = "#102A43";
     document.getElementById("footer").style.color = "#BCCCDC";
     document.querySelector("nav").style.backgroundColor = "#102A43";
+    document.querySelector("nav").classList.remove('has-shadow');
     var cardContents = document.querySelectorAll(".card-content");
     for (var i = 0; i < cardContents.length; i++) {
       cardContents[i].style.backgroundColor = "#334E68";
@@ -131,6 +132,7 @@ function renderTheme() {
     var navbarItems = document.querySelectorAll(".navbar-item");
     for (var i = 0; i < navbarItems.length; i++) {
       navbarItems[i].style.color = "white";
+      navbarItems[i].classList.add('nightmode');
     }
     var pTexts = document.querySelectorAll("p");
     for (var i = 0; i < pTexts.length; i++) {

@@ -17,7 +17,7 @@
         <div class="container">
           <div class="navbar-brand">
             <a href="index.html" class="navbar-item">
-              Appli<span style="color:darkcyan">Track</span>
+              Appli<div style="color:darkcyan">Track</div>
             </a>
           </div>
 
@@ -97,7 +97,7 @@
             </button>
           </div>
           <div class="dropdown-menu" id="sort-menu" role="menu">
-            <div class="dropdown-content">
+            <div class="dropdown-content" id="sortContent">
               <a href="#" class="dropdown-item" value="Alphabetical" onClick="javascript:EntryPoint.sortCards('az')">
                 A-Z
               </a>
@@ -137,7 +137,7 @@
               </button>
             </div>
             <div class="dropdown-menu" id="dropdown-menu3" role="menu">
-              <div class="dropdown-content">
+              <div class="dropdown-content" id="searchContent">
                 <a onclick="EntryPoint.selectSearch('Company Name')" class="dropdown-item">
                   Company Name
                 </a>

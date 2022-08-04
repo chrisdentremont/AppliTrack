@@ -86,7 +86,7 @@ const Biopharmguy = {
     "Not a job search engine, but a fairly comprehensive list of biotech and pharma companies " +
     "in MA broken down by town; great for biomeds doing direct outreach.",
   link: "https://biopharmguy.com/career-by-location.php",
-  industries: ["BioTech", "Biology", "Chemisty"],
+  industries: ["BioTech", "Biology", "Chemistry"],
 };
 
 const BostonStartups = {
@@ -571,6 +571,7 @@ function renderTheme() {
     document.getElementById("lightbutton").style.display = "flex";
     document.getElementById("html").style.backgroundColor = "#243B53";
     document.querySelector("nav").style.backgroundColor = "#102A43";
+    document.querySelector("nav").classList.remove('has-shadow');
     document.querySelector("#filterDropdown").style.backgroundColor = "#102A43";
     var h1texts = document.querySelectorAll("h1");
     for (var i = 0; i < h1texts.length; i++) {
@@ -607,6 +608,7 @@ function renderTheme() {
     var navbarItems = document.querySelectorAll(".navbar-item");
     for (var i = 0; i < navbarItems.length; i++) {
       navbarItems[i].style.color = "white";
+      navbarItems[i].classList.add('nightmode');
     }
     var tableHeaders = document.querySelectorAll("tr");
     for (var i = 0; i < tableHeaders.length; i++) {

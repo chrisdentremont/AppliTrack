@@ -12,7 +12,11 @@ html {
   
 #navbarstart {
     padding-left: 3%;
-}  
+} 
+
+.navbar-item.nightmode:hover{
+  background-color: black;
+}
 
 #sitestable {
     width: 90%;
@@ -46,4 +50,8 @@ html {
 
 #top-buttons {
   display: inline-flex;
+}
+
+.topbutton {
+  border: 0px;
 }
