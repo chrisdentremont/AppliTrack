@@ -274,7 +274,7 @@ function signInGoogle() {
       const user = result.user;
       const docRef = doc(db, "users", user.uid);
       getDoc(docRef).then((docSnap) => {
-        if (docSnap.exists) {
+        if (docSnap.exists()) {
           alert("exists");
           location.reload();
         } else {
