@@ -271,10 +271,9 @@ function signInGoogle() {
   signInWithPopup(auth, provider)
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
-      const user = result.user;
       var settings = {};
       settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
-      setDoc(doc(db, "users", user.uid), settings);
+      setDoc(doc(db, "users", credential.user.uid), settings);
       location.reload();
     })
     .catch((e) => {
