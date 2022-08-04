@@ -276,6 +276,7 @@ function signInGoogle() {
       var settings = {};
       settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
       setDoc(doc(db, "users", cred.user.uid), settings);
+      location.reload();
     })
     .catch((e) => {
       const errorCode = e.code;
