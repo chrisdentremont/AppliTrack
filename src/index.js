@@ -274,9 +274,9 @@ function signInGoogle() {
       const user = result.user;
       var settings = {};
       settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
-      console.log(user.uid);
-      setDoc(doc(db, "users", user.uid), settings);
-      location.reload();
+      setDoc(doc(db, "users", user.uid), settings).then(() => {
+        location.reload();
+      });
     })
     .catch((e) => {
       const errorCode = e.code;
