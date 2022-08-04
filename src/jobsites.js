@@ -123,7 +123,16 @@ const CollegeRecruiter = {
   title: "College Recruiter",
   desc: "Helping College and University Students and Recent Grads Find Great Internships, Entry-Level Jobs, and Careers.",
   link: "https://collegerecruiter.com/",
-  industries: [],
+  industries: [
+    "Computer Science",
+    "Management",
+    "Marketing",
+    "Sales",
+    "Operations",
+    "Engineering",
+    "Human Resources",
+    "Product",
+  ],
 };
 
 const Coroflot = {
@@ -428,18 +437,22 @@ onAuthStateChanged(auth, async (user) => {
 const siteTable = document.querySelector("#sitestable");
 
 function CreateJobSiteTable() {
-  while(siteTable.firstChild){
+  while (siteTable.firstChild) {
     siteTable.removeChild(siteTable.firstChild);
   }
   var tableBody = document.createElement("tbody");
   for (var i = 0; i < sites.length; i++) {
     var isIncluded = true;
-    for(var k = 0; k < filters.length; k++){
-      if(!sites[i].industries.includes(filters[k])){
+    for (var k = 0; k < filters.length; k++) {
+      if (!sites[i].industries.includes(filters[k])) {
         isIncluded = false;
       }
     }
-    if(isIncluded || filters.length == 0 || sites[i].industries.includes("Everything")){
+    if (
+      isIncluded ||
+      filters.length == 0 ||
+      sites[i].industries.includes("Everything")
+    ) {
       var tRow = document.createElement("tr");
       tRow.setAttribute("id", "sitetablerow");
       tRow.setAttribute("class", "clickable");
@@ -470,10 +483,41 @@ function CreateJobSiteTable() {
       var siteTags = document.createElement("span");
       siteTags.style.display = "block";
 
-      for(var j = 0; j < sites[i].industries.length; j++){
+      for (var j = 0; j < sites[i].industries.length; j++) {
         var siteTag = document.createElement("span");
         siteTag.classList.add("tag", "is-dark", "my-2", "mr-2");
         siteTag.textContent = sites[i].industries[j];
+        if (
+          sites[i].industries[j] == "Engineering" ||
+          sites[i].industries[j] == "Computer Science" ||
+          sites[i].industries[j] == "Digital Design" ||
+          sites[i].industries[j] == "Data Science"
+        ) {
+          siteTag.style.backgroundColor = "darkblue";
+        } else if (
+          sites[i].industries[j] == "Sales" ||
+          sites[i].industries[j] == "Product" ||
+          sites[i].industries[j] == "Operations" ||
+          sites[i].industries[j] == "Marketing" ||
+          sites[i].industries[j] == "Management" ||
+          sites[i].industries[j] == "Finance" ||
+          sites[i].industries[j] == "Human Resources" ||
+          sites[i].industries[j] == "Legal" ||
+          sites[i].industries[j] == "Economics" ||
+          sites[i].industries[j] == "Business"
+        ) {
+          siteTag.style.backgroundColor = "red";
+        } else if (
+          sites[i].industries[j] == "BioTech" ||
+          sites[i].industries[j] == "Biology" ||
+          sites[i].industries[j] == "Chemistry" ||
+          sites[i].industries[j] == "Psychology" ||
+          sites[i].industries[j] == "HealthCare" ||
+          sites[i].industries[j] == "Education" ||
+          sites[i].industries[j] == "Language"
+        ) {
+          siteTag.style.backgroundColor = "green";
+        }
         siteTags.appendChild(siteTag);
       }
 
@@ -490,21 +534,26 @@ function CreateJobSiteTable() {
   renderTheme();
 }
 
-function addFilterTags(){
+function addFilterTags() {
   filters = [];
-  while(document.getElementById('filterTags').firstChild){
-    document.getElementById('filterTags').removeChild(document.getElementById('filterTags').firstChild);
+  while (document.getElementById("filterTags").firstChild) {
+    document
+      .getElementById("filterTags")
+      .removeChild(document.getElementById("filterTags").firstChild);
   }
-  for(var i = 0; i < industryTags.length; i++){
-    if(industryTags[i] == "Everything"){
+  for (var i = 0; i < industryTags.length; i++) {
+    if (industryTags[i] == "Everything") {
       continue;
     }
-    if(document.getElementById('check' + industryTags[i].replace(/ /g, "")).checked){
+    if (
+      document.getElementById("check" + industryTags[i].replace(/ /g, ""))
+        .checked
+    ) {
       filters.push(industryTags[i]);
       var filterTag = document.createElement("span");
-      filterTag.classList.add("tag", "is-dark", "ml-1", "mr-2", "mb-2");
+      filterTag.classList.add("tag", "is-link", "ml-1", "mr-2", "mb-2");
       filterTag.textContent = industryTags[i];
-      document.getElementById('filterTags').appendChild(filterTag);
+      document.getElementById("filterTags").appendChild(filterTag);
     }
   }
   CreateJobSiteTable();
@@ -522,7 +571,7 @@ function renderTheme() {
     document.getElementById("lightbutton").style.display = "flex";
     document.getElementById("html").style.backgroundColor = "#243B53";
     document.querySelector("nav").style.backgroundColor = "#102A43";
-    document.querySelector('#filterDropdown').style.backgroundColor = "#102A43";
+    document.querySelector("#filterDropdown").style.backgroundColor = "#102A43";
     var h1texts = document.querySelectorAll("h1");
     for (var i = 0; i < h1texts.length; i++) {
       h1texts[i].style.color = "#BCCCDC";

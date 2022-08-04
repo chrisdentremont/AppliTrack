@@ -9,6 +9,8 @@ import {
   sendEmailVerification,
   sendPasswordResetEmail,
   updateProfile,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc } from "firebase/firestore";
 
@@ -25,6 +27,7 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
+const provider = new GoogleAuthProvider();
 
 const signUpButton = document.querySelector("#signupbutton");
 const applicationsButton = document.querySelector("#applicationsbutton");
@@ -263,6 +266,21 @@ logInForm.addEventListener("submit", (e) => {
     });
 });
 
+//Log In With Google
+function signInGoogle() {
+  signInWithPopup(auth, provider)
+    .then((result) => {
+      const credential = GoogleAuthProvider.credentialFromResult(result);
+      const token = credential.accessToken;
+      const user = result.user;
+    })
+    .catch((e) => {
+      const errorCode = e.code;
+      const errorMessage = e.message;
+      console.log(errorCode, errorMessage);
+    });
+}
+
 //Forgot Password
 const forgPassMessage = document.querySelector("#forgPassMessage");
 forgPassForm.addEventListener("submit", (e) => {
@@ -310,4 +328,5 @@ export {
   logout,
   setLightMode,
   setNightMode,
+  signInGoogle,
 };

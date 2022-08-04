@@ -1,256 +1,256 @@
 <html lang="en" id="html">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>AppliTrack</title>
-        <script src="https://kit.fontawesome.com/d36d0a95a4.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-        <link rel="stylesheet" href="jobsites.css">
-        <link rel="icon" href="images/logo2.png">
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AppliTrack</title>
+    <script src="https://kit.fontawesome.com/d36d0a95a4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <link rel="stylesheet" href="jobsites.css">
+    <link rel="icon" href="images/logo2.png">
+  </head>
 
-    <body>
-        <div class="hero-head">
-            <nav class="navbar has-shadow">
-                <div class="container">
-                  <div class="navbar-brand">
-                    <a href="index.html" class="navbar-item">
-                      Appli<span style="color:darkcyan">Track</span>
-                    </a>
+  <body>
+    <div class="hero-head">
+      <nav class="navbar has-shadow">
+        <div class="container">
+          <div class="navbar-brand">
+            <a href="index.html" class="navbar-item">
+              Appli<span style="color:darkcyan">Track</span>
+            </a>
+          </div>
+
+
+          <div class="navbar-start" id="navbarstart">
+            <a href="applications.html" class="navbar-item" id="applicationlink">
+              <span class="icon is-medium mr-1">
+                <i class="fas fa-book"></i>
+              </span>
+              Applications
+            </a>
+            <a href="jobsites.html" class="navbar-item" id="jobsiteslink">
+              <span class="icon is-medium mr-1">
+                <i class="fas fa-search"></i>
+              </span>
+              Job Search
+            </a>
+          </div>
+
+          <div class="navbar-end">
+            <a href="#" onclick="EntryPoint.setNightMode()" class="navbar-item" id="nightbutton">
+              <span class="icon is-medium">
+                <i class="fas fa-moon"></i>
+              </span>
+            </a>
+            <a href="#" onclick="EntryPoint.setLightMode()" class="navbar-item" id="lightbutton">
+              <span class="icon is-medium">
+                <i class="fas fa-sun"></i>
+              </span>
+            </a>
+            <a href="profile.html" class="navbar-item" id="profilelink">
+              <span class="icon is-medium mr-1">
+                <i class="fas fa-user"></i>
+              </span>
+              Account
+            </a>
+            <a href="#" onclick="EntryPoint.logout()" class="navbar-item" id="logoutlink">
+              <span class="icon is-medium mr-1">
+                <i class="fas fa-sign-out-alt"></i>
+              </span>
+              Logout
+            </a>
+          </div>
+        </div>
+    </div>
+    </nav>
+    </div>
+
+    <div class="hero-body" id="title-body">
+      <h1 class="title">Recommended Job Listing Websites</h1>
+      <div id="top-buttons">
+        <div class="dropdown is-hoverable" id="sortbutton">
+          <div class="dropdown-trigger">
+            <button class="button topbutton mr-2" aria-haspopup="true" aria-controls="dropdown-menu">
+              <span class="icon is-small">
+                <i class="fas fa-filter"></i>
+              </span>
+              <span>Filter</span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="sort-menu" role="menu">
+            <div class="dropdown-content" style="width:max-content" id="filterDropdown">
+              <div class="columns">
+                <div class="column is-half">
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkArchitecture" onclick="EntryPoint.addFilterTags()">
+                      Architecture
+                    </label>
                   </div>
-        
-        
-                  <div class="navbar-start" id="navbarstart">
-                    <a href="applications.html" class="navbar-item" id="applicationlink">
-                      <span class="icon is-medium mr-1">
-                        <i class="fas fa-book"></i>
-                      </span>
-                      Applications
-                    </a>
-                    <a href="jobsites.html" class="navbar-item" id="jobsiteslink">
-                      <span class="icon is-medium mr-1">
-                        <i class="fas fa-search"></i>
-                      </span>
-                      Job Sites
-                    </a>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkEngineering" onclick="EntryPoint.addFilterTags()">
+                      Engineering
+                    </label>
                   </div>
-        
-                  <div class="navbar-end">
-                    <a href="#" onclick="EntryPoint.setNightMode()" class="navbar-item" id="nightbutton">
-                      <span class="icon is-medium">
-                        <i class="fas fa-moon"></i>
-                      </span>
-                    </a>
-                    <a href="#" onclick="EntryPoint.setLightMode()" class="navbar-item" id="lightbutton">
-                      <span class="icon is-medium">
-                        <i class="fas fa-sun"></i>
-                      </span>
-                    </a>
-                    <a href="profile.html" class="navbar-item" id="profilelink">
-                      <span class="icon is-medium mr-1">
-                        <i class="fas fa-user"></i>
-                      </span>
-                      Account
-                    </a>
-                    <a href="#" onclick="EntryPoint.logout()" class="navbar-item" id="logoutlink">
-                      <span class="icon is-medium mr-1">
-                        <i class="fas fa-sign-out-alt"></i>
-                      </span>
-                      Logout
-                    </a>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkComputerScience" onclick="EntryPoint.addFilterTags()">
+                      Computer Science
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkDigitalDesign" onclick="EntryPoint.addFilterTags()">
+                      Digital Design
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkProduct" onclick="EntryPoint.addFilterTags()">
+                      Product
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkOperations" onclick="EntryPoint.addFilterTags()">
+                      Operations
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkSales" onclick="EntryPoint.addFilterTags()">
+                      Sales
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkLegal" onclick="EntryPoint.addFilterTags()">
+                      Legal
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkEconomics" onclick="EntryPoint.addFilterTags()">
+                      Economics
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkPsychology" onclick="EntryPoint.addFilterTags()">
+                      Psychology
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkBusiness" onclick="EntryPoint.addFilterTags()">
+                      Business
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkHealthCare" onclick="EntryPoint.addFilterTags()">
+                      Healthcare
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkEducation" onclick="EntryPoint.addFilterTags()">
+                      Education
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkLanguage" onclick="EntryPoint.addFilterTags()">
+                      Language
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkDesign" onclick="EntryPoint.addFilterTags()">
+                      Design
+                    </label>
                   </div>
                 </div>
-            </div>
-            </nav>
-        </div>
-
-        <div class="hero-body" id="title-body">
-            <h1 class="title">Recommended Job Listing Websites</h1>
-            <div id="top-buttons">
-                <div class="dropdown is-hoverable" id="sortbutton">
-                    <div class="dropdown-trigger">
-                      <button class="button topbutton mr-2" aria-haspopup="true" aria-controls="dropdown-menu">
-                        <span class="icon is-small">
-                          <i class="fas fa-filter"></i>
-                        </span>
-                        <span>Filter</span>
-                      </button>
-                    </div>
-                    <div class="dropdown-menu" id="sort-menu" role="menu">
-                      <div class="dropdown-content" style="width:max-content" id="filterDropdown">
-                        <div class="columns">
-                            <div class="column is-half">
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkArchitecture" onclick="EntryPoint.addFilterTags()">
-                                        Architecture
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkEngineering" onclick="EntryPoint.addFilterTags()">
-                                        Engineering
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkComputerScience" onclick="EntryPoint.addFilterTags()">
-                                        Computer Science
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkDigitalDesign" onclick="EntryPoint.addFilterTags()">
-                                        Digital Design
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkProduct" onclick="EntryPoint.addFilterTags()">
-                                        Product
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkOperations" onclick="EntryPoint.addFilterTags()">
-                                        Operations
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkSales" onclick="EntryPoint.addFilterTags()">
-                                        Sales
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkLegal" onclick="EntryPoint.addFilterTags()">
-                                        Legal
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkEconomics" onclick="EntryPoint.addFilterTags()">
-                                        Economics
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkPsychology" onclick="EntryPoint.addFilterTags()">
-                                        Psychology
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkBusiness" onclick="EntryPoint.addFilterTags()">
-                                        Business
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkHealthCare" onclick="EntryPoint.addFilterTags()">
-                                        Healthcare
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkEducation" onclick="EntryPoint.addFilterTags()">
-                                        Education
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkLanguage" onclick="EntryPoint.addFilterTags()">
-                                        Language
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkDesign" onclick="EntryPoint.addFilterTags()">
-                                        Design
-                                      </label>
-                                </div>
-                            </div>
-                            <div class="column is-half">
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkMarketing" onclick="EntryPoint.addFilterTags()">
-                                        Marketing
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkManagement" onclick="EntryPoint.addFilterTags()">
-                                        Management
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkInteriorDesign" onclick="EntryPoint.addFilterTags()">
-                                        Interior Design
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkBioTech" onclick="EntryPoint.addFilterTags()">
-                                        BioTech
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkBiology" onclick="EntryPoint.addFilterTags()">
-                                        Biology
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkChemistry" onclick="EntryPoint.addFilterTags()">
-                                        Chemistry
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkDataScience" onclick="EntryPoint.addFilterTags()">
-                                        Data Science
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkFinance" onclick="EntryPoint.addFilterTags()">
-                                        Finance
-                                      </label>
-                                </div>
-                                <div class="dropdown-item">
-                                    <label class="checkbox">
-                                        <input type="checkbox" id="checkHumanResources" onclick="EntryPoint.addFilterTags()">
-                                        Human Resources
-                                      </label>
-                                </div>
-                            </div>
-                        </div>
-                      </div>
-                    </div>
+                <div class="column is-half">
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkMarketing" onclick="EntryPoint.addFilterTags()">
+                      Marketing
+                    </label>
                   </div>
-                  <div id="filterTags"></div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkManagement" onclick="EntryPoint.addFilterTags()">
+                      Management
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkInteriorDesign" onclick="EntryPoint.addFilterTags()">
+                      Interior Design
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkBioTech" onclick="EntryPoint.addFilterTags()">
+                      BioTech
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkBiology" onclick="EntryPoint.addFilterTags()">
+                      Biology
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkChemistry" onclick="EntryPoint.addFilterTags()">
+                      Chemistry
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkDataScience" onclick="EntryPoint.addFilterTags()">
+                      Data Science
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkFinance" onclick="EntryPoint.addFilterTags()">
+                      Finance
+                    </label>
+                  </div>
+                  <div class="dropdown-item">
+                    <label class="checkbox">
+                      <input type="checkbox" id="checkHumanResources" onclick="EntryPoint.addFilterTags()">
+                      Human Resources
+                    </label>
+                  </div>
+                </div>
+              </div>
             </div>
+          </div>
         </div>
+        <div id="filterTags"></div>
+      </div>
+    </div>
 
-        <div class="hero-body" id="jobsites">
-            <table class="table is-hoverable mt-5" id="sitestable">
-                <tbody id="sitestablebody">
-                </tbody>
-            </table>
-            <!-- Create a header 
+    <div class="hero-body" id="jobsites">
+      <table class="table is-hoverable mt-5" id="sitestable">
+        <tbody id="sitestablebody">
+        </tbody>
+      </table>
+      <!-- Create a header 
                  Present a List of job Sites
                  Each Row contains
                     Site logo
                     Site description
                     if u click the row it takes u to the job site -->
-        </div>
+    </div>
 
-    </body>
-    <script type="text/javascript" src="jobsites.bundle.js"></script>
+  </body>
+  <script type="text/javascript" src="jobsites.bundle.js"></script>
 
 </html>

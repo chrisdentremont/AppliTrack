@@ -1,145 +1,145 @@
 <html lang="en" id="html">
 
-    <head>
-        <meta charset="UTF-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>AppliTrack</title>
-        <script src="https://kit.fontawesome.com/d36d0a95a4.js" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
-        <link rel="stylesheet" href="stylesheet.css">
-        <link rel="stylesheet" href="profilesheet.css">
-        <link rel="icon" href="images/logo2.png">
-    </head>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>AppliTrack</title>
+    <script src="https://kit.fontawesome.com/d36d0a95a4.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="profilesheet.css">
+    <link rel="icon" href="images/logo2.png">
+  </head>
 
-    <body>
-        <div class="hero-head">
-            <nav class="navbar has-shadow">
-                <div class="container">
-                  <div class="navbar-brand">
-                    <a href="index.html" class="navbar-item">
-                      Appli<span style="color:darkcyan">Track</span>
-                    </a>
-                  </div>
-        
-        
-                  <div class="navbar-start" id="navbarstart">
-                    <a href="applications.html" class="navbar-item" id="applicationlink">
-                      <span class="icon is-medium mr-1">
-                        <i class="fas fa-book"></i>
-                      </span>
-                      Applications
-                    </a>
-                    <a href="jobsites.html" class="navbar-item" id="jobsiteslink">
-                      <span class="icon is-medium mr-1">
-                        <i class="fas fa-search"></i>
-                      </span>
-                      Job Sites
-                    </a>
-                  </div>
-        
-                  <div class="navbar-end">
-                    <a href="#" onclick="EntryPoint.setNightMode()" class="navbar-item" id="nightbutton">
-                      <span class="icon is-medium">
-                        <i class="fas fa-moon"></i>
-                      </span>
-                    </a>
-                    <a href="#" onclick="EntryPoint.setLightMode()" class="navbar-item" id="lightbutton">
-                      <span class="icon is-medium">
-                        <i class="fas fa-sun"></i>
-                      </span>
-                    </a>
-                    <a href="profile.html" class="navbar-item" id="profilelink">
-                      <span class="icon is-medium mr-1">
-                        <i class="fas fa-user"></i>
-                      </span>
-                      Account
-                    </a>
-                    <a href="#" onclick="EntryPoint.logout()" class="navbar-item" id="logoutlink">
-                      <span class="icon is-medium mr-1">
-                        <i class="fas fa-sign-out-alt"></i>
-                      </span>
-                      Logout
-                    </a>
-                  </div>
-                </div>
+  <body>
+    <div class="hero-head">
+      <nav class="navbar has-shadow">
+        <div class="container">
+          <div class="navbar-brand">
+            <a href="index.html" class="navbar-item">
+              Appli<span style="color:darkcyan">Track</span>
+            </a>
+          </div>
+
+
+          <div class="navbar-start" id="navbarstart">
+            <a href="applications.html" class="navbar-item" id="applicationlink">
+              <span class="icon is-medium mr-1">
+                <i class="fas fa-book"></i>
+              </span>
+              Applications
+            </a>
+            <a href="jobsites.html" class="navbar-item" id="jobsiteslink">
+              <span class="icon is-medium mr-1">
+                <i class="fas fa-search"></i>
+              </span>
+              Job Search
+            </a>
+          </div>
+
+          <div class="navbar-end">
+            <a href="#" onclick="EntryPoint.setNightMode()" class="navbar-item" id="nightbutton">
+              <span class="icon is-medium">
+                <i class="fas fa-moon"></i>
+              </span>
+            </a>
+            <a href="#" onclick="EntryPoint.setLightMode()" class="navbar-item" id="lightbutton">
+              <span class="icon is-medium">
+                <i class="fas fa-sun"></i>
+              </span>
+            </a>
+            <a href="profile.html" class="navbar-item" id="profilelink">
+              <span class="icon is-medium mr-1">
+                <i class="fas fa-user"></i>
+              </span>
+              Account
+            </a>
+            <a href="#" onclick="EntryPoint.logout()" class="navbar-item" id="logoutlink">
+              <span class="icon is-medium mr-1">
+                <i class="fas fa-sign-out-alt"></i>
+              </span>
+              Logout
+            </a>
+          </div>
+        </div>
+    </div>
+    </nav>
+    </div>
+
+    <div class="box has-text-centered">
+      <span class="icon-text">
+        <span>
+          <h1 class="title has-text-centered is-1" id="nameText"></h1>
+        </span>
+        <a onclick="EntryPoint.changeName()">
+          <span class="icon is-large">
+            <i class="fas fa-lg fa-pen"></i>
+          </span>
+        </a>
+      </span>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+
+      <h2 class="title is-3">Email</h2>
+      <p class="subtitle is-5" id="emailText"></p>
+
+      <br>
+
+      <button class="button is-link" onclick="EntryPoint.changePass()" id="changepassbutton">Change
+        Password</button>
+      <br>
+      <br>
+      <button class="button is-danger" onclick="EntryPoint.deleteAccount()" id="deletebutton">Delete
+        Account</button>
+      <br>
+      <br>
+      <p id="changepasstext"></p>
+    </div>
+
+    <div class="container" id="profile-head">
+
+    </div>
+
+    <div class="modal" id="resetnamemodal">
+      <div class="modal-background" id="resetnamemodalbg"></div>
+      <div class="modal-content py-5 px-5" id="resetNameModalColor">
+        <button class="delete" id="changeNameCloseButton"></button>
+        <h3 class="title mb-6 has-text-weight-bold">Enter New Name</h3>
+        <div hidden class="notification is-success" id="nameresetmessage">Your name has been changed.</div>
+        <form method="POST" action="/signup" id="nameresetform">
+          <div class="field">
+            <div class="control">
+              <input class="input" type="text" name="name" required>
             </div>
-            </nav>
+          </div>
+
+          <br />
+          <button class="button is-block is-primary is-medium is-fullwidth" type="submit" id="forgpasssubmit">Change
+            Name</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal" id="deleteaccountmodal">
+      <div class="modal-background" id="deleteaccountmodalbg"></div>
+      <div class="modal-content py-5 px-5" id="deleteAccountModalColor">
+        <button class="delete" id="delAccountCloseButton"></button>
+        <h3 class="title mb-6 has-text-weight-bold">Delete Account</h3>
+        <div hidden class="notification is-success" id="deleteaccountmessage">Your account has been deleted.
         </div>
-
-        <div class="box has-text-centered">
-            <span class="icon-text">
-                <span>
-                    <h1 class="title has-text-centered is-1" id="nameText"></h1>
-                </span>
-                <a onclick="EntryPoint.changeName()">
-                    <span class="icon is-large">
-                        <i class="fas fa-lg fa-pen"></i>
-                    </span>
-                </a>
-            </span>
-
-            <br>
-            <br>
-            <br>
-            <br>
-            <br>
-
-            <h2 class="title is-3">Email</h2>
-            <p class="subtitle is-5" id="emailText"></p>
-
-            <br>
-
-            <button class="button is-link" onclick="EntryPoint.changePass()" id="changepassbutton">Change
-                Password</button>
-            <br>
-            <br>
-            <button class="button is-danger" onclick="EntryPoint.deleteAccount()" id="deletebutton">Delete
-                Account</button>
-            <br>
-            <br>
-            <p id="changepasstext"></p>
-        </div>
-
-        <div class="container" id="profile-head">
-
-        </div>
-
-        <div class="modal" id="resetnamemodal">
-            <div class="modal-background" id="resetnamemodalbg"></div>
-            <div class="modal-content py-5 px-5" id="resetNameModalColor">
-                <button class="delete" id="changeNameCloseButton"></button>
-                <h3 class="title mb-6 has-text-weight-bold">Enter New Name</h3>
-                <div hidden class="notification is-success" id="nameresetmessage">Your name has been changed.</div>
-                <form method="POST" action="/signup" id="nameresetform">
-                    <div class="field">
-                        <div class="control">
-                            <input class="input" type="text" name="name" required>
-                        </div>
-                    </div>
-
-                    <br />
-                    <button class="button is-block is-primary is-medium is-fullwidth" type="submit"
-                        id="forgpasssubmit">Change Name</button>
-                </form>
-            </div>
-        </div>
-
-        <div class="modal" id="deleteaccountmodal">
-            <div class="modal-background" id="deleteaccountmodalbg"></div>
-            <div class="modal-content py-5 px-5" id="deleteAccountModalColor">
-                <button class="delete" id="delAccountCloseButton"></button>
-                <h3 class="title mb-6 has-text-weight-bold">Delete Account</h3>
-                <div hidden class="notification is-success" id="deleteaccountmessage">Your account has been deleted.
-                </div>
-                <p class="subtitle">Deleting your account will delete all your data. If you delete your account, <b>you
-                        will not be able to get your data back.</b></p>
-                <button class="button is-block is-danger is-medium is-fullwidth" type="button"
-                    onclick="EntryPoint.deleteAUser()">Yes,
-                    I understand this will delete all of my data.</button>
-            </div>
-        </div>
-    </body>
-    <script type="text/javascript" src="profile.bundle.js"></script>
+        <p class="subtitle">Deleting your account will delete all your data. If you delete your account, <b>you
+            will not be able to get your data back.</b></p>
+        <button class="button is-block is-danger is-medium is-fullwidth" type="button"
+          onclick="EntryPoint.deleteAUser()">Yes,
+          I understand this will delete all of my data.</button>
+      </div>
+    </div>
+  </body>
+  <script type="text/javascript" src="profile.bundle.js"></script>
 
 </html>
