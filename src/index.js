@@ -272,18 +272,20 @@ function signInGoogle() {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const user = result.user;
-      var docRef = getDoc(doc(db, "users", user.uid));
-      if (docRef.exists) {
-        console.log("exists");
-        location.reload();
-      } else {
-        console.log("doesnt exist");
-        var settings = {};
-        settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
-        setDoc(doc(db, "users", user.uid), settings).then(() => {
+      const docRef = doc(db, "users", user.uid);
+      getDoc(docRef).then((docSnap) => {
+        if (docSnap.exists) {
+          alert("exists");
           location.reload();
-        });
-      }
+        } else {
+          alert("doesnt exist");
+          var settings = {};
+          settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
+          setDoc(doc(db, "users", user.uid), settings).then(() => {
+            location.reload();
+          });
+        }
+      });
     })
     .catch((e) => {
       const errorCode = e.code;
