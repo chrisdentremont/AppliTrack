@@ -272,10 +272,17 @@ function signInGoogle() {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const user = result.user;
-      var settings = {};
-      settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
-      setDoc(doc(db, "users", user.uid), settings).then(() => {
-        location.reload();
+      var docRef = db.collection("users").doc(user.uid);
+      docRef.get().then((doc) => {
+        if (doc.exists) {
+          location.reload();
+        } else {
+          var settings = {};
+          settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
+          setDoc(doc(db, "users", user.uid), settings).then(() => {
+            location.reload();
+          });
+        }
       });
     })
     .catch((e) => {
