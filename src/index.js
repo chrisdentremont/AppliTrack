@@ -272,7 +272,7 @@ function signInGoogle() {
     .then((result) => {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const user = result.user;
-      var docRef = db.collection("users").doc(user.uid);
+      var docRef = doc(db, "users", user.uid);
       docRef.get().then((doc) => {
         if (doc.exists) {
           location.reload();
