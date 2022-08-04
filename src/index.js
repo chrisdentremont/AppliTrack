@@ -273,11 +273,14 @@ function signInGoogle() {
       const credential = GoogleAuthProvider.credentialFromResult(result);
       const token = credential.accessToken;
       const user = result.user;
+      var settings = {};
+      settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
+      setDoc(doc(db, "users", cred.user.uid), settings);
     })
     .catch((e) => {
       const errorCode = e.code;
       const errorMessage = e.message;
-      console.log(errorCode, errorMessage);
+      alert(errorCode + "\n" + errorMessage);
     });
 }
 
