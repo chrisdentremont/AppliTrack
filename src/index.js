@@ -275,10 +275,8 @@ function signInGoogle() {
       const docRef = doc(db, "users", user.uid);
       getDoc(docRef).then((docSnap) => {
         if (docSnap.exists()) {
-          alert("exists");
           location.reload();
         } else {
-          alert("doesnt exist");
           var settings = {};
           settings["userSettings"] = ["true", "2 Weeks", "Cards"]; //Default settings
           setDoc(doc(db, "users", user.uid), settings).then(() => {
