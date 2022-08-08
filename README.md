@@ -1,4 +1,4 @@
-# ![AppliTrack](dist/images/logo.png) V1.7
+# ![AppliTrack](dist/images/logo.png) v1.1.4
 
 AppliTrack is a web application that allows you to keep track of your job applications throughout your job search.
 
@@ -10,13 +10,16 @@ AppliTrack is a web application that allows you to keep track of your job applic
 
 ## Changelog
 
-### August 2nd, 2022 (v1.7)
+### August 8th, 2022 (v1.1.4)
+- Added new map tab where the location of every application can be viewed at once (if location field is valid)
+
+### August 2nd, 2022 (v1.1.3)
 
 - Added more application fields (salary, color, location)
 - Added viewable map for applications in view window
 - Added page for job listing website recommendations
 
-### July 27th, 2022 (v1.6)
+### July 27th, 2022 (v1.1.2)
 
 - Added list option to view applications
 - Added settings panel to applications page
@@ -24,32 +27,32 @@ AppliTrack is a web application that allows you to keep track of your job applic
   - _Change display style of applications (list or cards)_
 - Visual tweaks
 
-### July 15th, 2022 (v1.5)
+### July 15th, 2022 (v1.1.1)
 
 - Added toggle between dark and light mode
 
-### July 1st, 2022 (v1.4)
+### July 1st, 2022 (v1.1.0)
 
 - Added user authentication (login/signup)
 - Added user database to store applications (no more cookies)
 
-### May 8th, 2022 (v1.3)
+### May 8th, 2022 (v1.0.3)
 
 - Overhauled application search (can filter by any field now)
 - Added warning to follow up with employers two weeks after applying
 - Fixed bug where uploaded applications disappear
 
-### May 5th, 2022 (v1.2)
+### May 5th, 2022 (v1.0.2)
 
 - Added the ability to edit existing applications
 
-### April 27th, 2022 (v1.1)
+### April 27th, 2022 (v1.0.1)
 
 - Added option to sort applications by either A-Z or date
 - Added search box to easily filter out applications by company name
 - (Mostly) Optimized layout on different size screens
 
-### April 10th, 2022 (v1.0)
+### April 10th, 2022 (v1.0.0)
 
 - AppliTrack launch
 - Create job applications through form
