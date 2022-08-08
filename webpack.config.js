@@ -7,6 +7,7 @@ module.exports = {
     applications: "./src/applications.js",
     profile: "./src/profile.js",
     jobsites: "./src/jobsites.js",
+    applicationmap: "./src/applicationmap.js",
   },
   output: {
     path: path.resolve(__dirname, "dist"),
