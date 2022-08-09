@@ -53,7 +53,7 @@ const loginLink = document.querySelector("#loginlink");
 const signupLink = document.querySelector("#signuplink");
 const logoutLink = document.querySelector("#logoutlink");
 const applicationLink = document.querySelector("#applicationlink");
-const applicationMapLink = document.querySelector('#applicationmaplink');
+const applicationMapLink = document.querySelector("#applicationmaplink");
 const jobsitesLink = document.querySelector("#jobsiteslink");
 const profileLink = document.querySelector("#profilelink");
 loginLink.style.display = "none";
@@ -102,6 +102,9 @@ function setLightMode() {
   location.reload();
 }
 
+/**
+ * Function to change styles of present DOM elements to night mode color
+ */
 function renderTheme() {
   let cookie = {};
   document.cookie.split(";").forEach(function (el) {
@@ -124,7 +127,7 @@ function renderTheme() {
     document.getElementById("footer").style.backgroundColor = "#102A43";
     document.getElementById("footer").style.color = "#BCCCDC";
     document.querySelector("nav").style.backgroundColor = "#102A43";
-    document.querySelector("nav").classList.remove('has-shadow');
+    document.querySelector("nav").classList.remove("has-shadow");
     var cardContents = document.querySelectorAll(".card-content");
     for (var i = 0; i < cardContents.length; i++) {
       cardContents[i].style.backgroundColor = "#334E68";
@@ -136,7 +139,7 @@ function renderTheme() {
     var navbarItems = document.querySelectorAll(".navbar-item");
     for (var i = 0; i < navbarItems.length; i++) {
       navbarItems[i].style.color = "white";
-      navbarItems[i].classList.add('nightmode');
+      navbarItems[i].classList.add("nightmode");
     }
     var pTexts = document.querySelectorAll("p");
     for (var i = 0; i < pTexts.length; i++) {

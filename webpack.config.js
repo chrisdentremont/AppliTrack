@@ -10,7 +10,7 @@ module.exports = {
     applicationmap: "./src/applicationmap.js",
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "dist/bundles"),
     filename: "[name].bundle.js",
     libraryTarget: "var",
     library: "EntryPoint",

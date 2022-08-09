@@ -29,6 +29,54 @@ onAuthStateChanged(auth, async (user) => {
   }
 });
 
+function logout() {
+  signOut(auth);
+  location.reload();
+}
+
+function setNightMode() {
+  document.cookie = "theme=night";
+  document.getElementById("html").style.transition = "0.3s";
+  document.querySelector("nav").style.transition = "0.3s";
+  renderTheme();
+}
+
+function setLightMode() {
+  document.cookie = "theme=light";
+  location.reload();
+}
+
+/**
+ * Function to change styles of present DOM elements to night mode color
+ */
+function renderTheme() {
+  let cookie = {};
+  document.cookie.split(";").forEach(function (el) {
+    let [key, value] = el.split("=");
+    cookie[key.trim()] = value;
+  });
+  if (cookie["theme"] == "night") {
+    document.getElementById("nightbutton").style.display = "none";
+    document.getElementById("lightbutton").style.display = "flex";
+    document.getElementById("html").style.backgroundColor = "#243B53";
+    document.querySelector("nav").style.backgroundColor = "#102A43";
+    document.querySelector("nav").classList.remove("has-shadow");
+    var navbarItems = document.querySelectorAll(".navbar-item");
+    for (var i = 0; i < navbarItems.length; i++) {
+      navbarItems[i].style.color = "white";
+      navbarItems[i].classList.add("nightmode");
+    }
+  } else {
+    document.getElementById("nightbutton").style.display = "flex";
+    document.getElementById("lightbutton").style.display = "none";
+  }
+}
+
+/**
+ * Function to initialize map using Google Maps API
+ *
+ * @param {*} applications User applications to display on map
+ */
 function initMap(applications) {
   const map = new google.maps.Map(document.getElementById("locationMap"), {
     zoom: 6,
@@ -66,13 +114,13 @@ function initMap(applications) {
           var markerString;
           if (applications[i][8] != "None") {
             markerString =
-              "markers/" +
+              "images/markers/" +
               applications[i][8].toLowerCase() +
               "_Marker" +
               firstLetter +
               ".png";
           } else {
-            markerString = "markers/brown_Marker" + firstLetter + ".png";
+            markerString = "images/markers/brown_Marker" + firstLetter + ".png";
           }
           const marker = new google.maps.Marker({
             position: loc,
@@ -101,10 +149,8 @@ function initMap(applications) {
             content: contentString,
           });
           google.maps.event.addListener(infowindow, "domready", function () {
-            var closeButtons = document.querySelectorAll(".gm-ui-hover-effect");
-            for (var i = 0; i < closeButtons.length; i++) {
-              closeButtons[i].style.display = "none";
-            }
+            var closeButton = document.querySelector(".gm-ui-hover-effect");
+            closeButton.style.display = "none";
           });
           google.maps.event.addListener(marker, "mouseover", function () {
             infowindow.open(map, marker);
@@ -120,62 +166,6 @@ function initMap(applications) {
   document.getElementById("locationMap").style.height =
     document.documentElement.scrollHeight -
     document.querySelector("nav").offsetHeight * 2;
-}
-
-function setNightMode() {
-  document.cookie = "theme=night";
-  document.getElementById("html").style.transition = "0.3s";
-  document.querySelector("nav").style.transition = "0.3s";
-  renderTheme();
-}
-
-function setLightMode() {
-  document.cookie = "theme=light";
-  location.reload();
-}
-
-function renderTheme() {
-  let cookie = {};
-  document.cookie.split(";").forEach(function (el) {
-    let [key, value] = el.split("=");
-    cookie[key.trim()] = value;
-  });
-  if (cookie["theme"] == "night") {
-    document.getElementById("nightbutton").style.display = "none";
-    document.getElementById("lightbutton").style.display = "flex";
-    document.getElementById("html").style.backgroundColor = "#243B53";
-    document.querySelector("nav").style.backgroundColor = "#102A43";
-    document.querySelector("nav").classList.remove("has-shadow");
-    //   var titleTexts = document.querySelectorAll(".title");
-    //   for (var i = 0; i < titleTexts.length; i++) {
-    //     titleTexts[i].style.color = "#BCCCDC";
-    //   }
-    //   var subtitleTexts = document.querySelectorAll(".subtitle");
-    //   for (var i = 0; i < subtitleTexts.length; i++) {
-    //     subtitleTexts[i].style.color = "#BCCCDC";
-    //   }
-    //   var spanTexts = document.querySelectorAll("span");
-    //   for (var i = 0; i < spanTexts.length; i++) {
-    //     spanTexts[i].style.color = "#BCCCDC";
-    //   }
-    //   var modalBgs = document.querySelectorAll(".modal-content");
-    //   for (var i = 0; i < modalBgs.length; i++) {
-    //     modalBgs[i].style.backgroundColor = "#243B53";
-    //   }
-    var navbarItems = document.querySelectorAll(".navbar-item");
-    for (var i = 0; i < navbarItems.length; i++) {
-      navbarItems[i].style.color = "white";
-      navbarItems[i].classList.add("nightmode");
-    }
-  } else {
-    document.getElementById("nightbutton").style.display = "flex";
-    document.getElementById("lightbutton").style.display = "none";
-  }
-}
-
-function logout() {
-  signOut(auth);
-  location.reload();
 }
 
 export { setLightMode, setNightMode, logout };

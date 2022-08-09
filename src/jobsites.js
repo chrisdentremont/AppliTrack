@@ -15,6 +15,104 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const auth = getAuth();
 
+onAuthStateChanged(auth, async (user) => {
+  if (user) {
+    CreateJobSiteTable(); //Create List of Job Sites
+  } else {
+    window.location.href = "index.html";
+  }
+});
+
+function logout() {
+  signOut(auth);
+  window.location.href = "index.html";
+}
+
+function setNightMode() {
+  document.cookie = "theme=night";
+  document.getElementById("html").style.transition = "0.3s";
+  document.querySelector("nav").style.transition = "0.3s";
+  renderTheme();
+}
+
+function setLightMode() {
+  document.cookie = "theme=light";
+  location.reload();
+}
+
+/**
+ * Function to change styles of present DOM elements to night mode color
+ */
+function renderTheme() {
+  let cookie = {};
+  document.cookie.split(";").forEach(function (el) {
+    let [key, value] = el.split("=");
+    cookie[key.trim()] = value;
+  });
+  if (cookie["theme"] == "night") {
+    document.getElementById("nightbutton").style.display = "none";
+    document.getElementById("lightbutton").style.display = "flex";
+    document.getElementById("html").style.backgroundColor = "#243B53";
+    document.querySelector("nav").style.backgroundColor = "#102A43";
+    document.querySelector("nav").classList.remove("has-shadow");
+    document.querySelector("#filterDropdown").style.backgroundColor = "#102A43";
+    var h1texts = document.querySelectorAll("h1");
+    for (var i = 0; i < h1texts.length; i++) {
+      h1texts[i].style.color = "#BCCCDC";
+    }
+    var h3texts = document.querySelectorAll("h3");
+    for (var i = 0; i < h3texts.length; i++) {
+      h3texts[i].style.color = "#BCCCDC";
+    }
+    var h5texts = document.querySelectorAll("h5");
+    for (var i = 0; i < h5texts.length; i++) {
+      h5texts[i].style.color = "#BCCCDC";
+    }
+    var pTexts = document.querySelectorAll("p");
+    for (var i = 0; i < pTexts.length; i++) {
+      pTexts[i].style.color = "#BCCCDC";
+    }
+    var topButtons = document.querySelectorAll(".topbutton");
+    for (var i = 0; i < topButtons.length; i++) {
+      topButtons[i].style.backgroundColor = "#334E68";
+      topButtons[i].style.borderColor = "#102A43";
+    }
+    var spanTexts = document.querySelectorAll("span");
+    for (var i = 0; i < spanTexts.length; i++) {
+      spanTexts[i].style.color = "#BCCCDC";
+    }
+    var labelTexts = document.querySelectorAll("label");
+    for (var i = 0; i < labelTexts.length; i++) {
+      labelTexts[i].style.color = "#BCCCDC";
+    }
+    var h5Texts = document.querySelectorAll("h5");
+    for (var i = 0; i < h5Texts.length; i++) {
+      h5Texts[i].style.color = "#BCCCDC";
+    }
+    var navbarItems = document.querySelectorAll(".navbar-item");
+    for (var i = 0; i < navbarItems.length; i++) {
+      navbarItems[i].style.color = "white";
+      navbarItems[i].classList.add("nightmode");
+    }
+    var tableHeaders = document.querySelectorAll("tr");
+    for (var i = 0; i < tableHeaders.length; i++) {
+      tableHeaders[i].style.backgroundColor = "#102A43";
+      tableHeaders[i].style.color = "#BCCCDC";
+    }
+    var tableText = document.querySelectorAll("td");
+    for (var i = 0; i < tableText.length; i++) {
+      tableText[i].style.color = "#BCCCDC";
+    }
+    var tableTextHeaders = document.querySelectorAll("th");
+    for (var i = 0; i < tableTextHeaders.length; i++) {
+      tableTextHeaders[i].style.color = "#BCCCDC";
+    }
+  } else {
+    document.getElementById("nightbutton").style.display = "flex";
+    document.getElementById("lightbutton").style.display = "none";
+  }
+}
+
 //Job Site Info
 const AIA = {
   logo: "images/AIA.png",
@@ -426,16 +524,14 @@ const industryTags = [
 
 var filters = [];
 
-onAuthStateChanged(auth, async (user) => {
-  if (user) {
-    CreateJobSiteTable(); //Create List of Job Sites
-  } else {
-    window.location.href = "index.html";
-  }
-});
-
 const siteTable = document.querySelector("#sitestable");
 
+/**
+ * Function to display table consisting of job website objects defined above
+ *
+ * If there are filters active from the dropdown, the websites will be filtered
+ * through accordingly by their tags
+ */
 function CreateJobSiteTable() {
   while (siteTable.firstChild) {
     siteTable.removeChild(siteTable.firstChild);
@@ -534,6 +630,10 @@ function CreateJobSiteTable() {
   renderTheme();
 }
 
+/**
+ * Selects filters from dropdown and filters through job websites containing said tags
+ * Displays the tag next to the filter button
+ */
 function addFilterTags() {
   filters = [];
   while (document.getElementById("filterTags").firstChild) {
@@ -557,93 +657,6 @@ function addFilterTags() {
     }
   }
   CreateJobSiteTable();
-}
-
-//Switch styles of objects to dark theme
-function renderTheme() {
-  let cookie = {};
-  document.cookie.split(";").forEach(function (el) {
-    let [key, value] = el.split("=");
-    cookie[key.trim()] = value;
-  });
-  if (cookie["theme"] == "night") {
-    document.getElementById("nightbutton").style.display = "none";
-    document.getElementById("lightbutton").style.display = "flex";
-    document.getElementById("html").style.backgroundColor = "#243B53";
-    document.querySelector("nav").style.backgroundColor = "#102A43";
-    document.querySelector("nav").classList.remove('has-shadow');
-    document.querySelector("#filterDropdown").style.backgroundColor = "#102A43";
-    var h1texts = document.querySelectorAll("h1");
-    for (var i = 0; i < h1texts.length; i++) {
-      h1texts[i].style.color = "#BCCCDC";
-    }
-    var h3texts = document.querySelectorAll("h3");
-    for (var i = 0; i < h3texts.length; i++) {
-      h3texts[i].style.color = "#BCCCDC";
-    }
-    var h5texts = document.querySelectorAll("h5");
-    for (var i = 0; i < h5texts.length; i++) {
-      h5texts[i].style.color = "#BCCCDC";
-    }
-    var pTexts = document.querySelectorAll("p");
-    for (var i = 0; i < pTexts.length; i++) {
-      pTexts[i].style.color = "#BCCCDC";
-    }
-    var topButtons = document.querySelectorAll(".topbutton");
-    for (var i = 0; i < topButtons.length; i++) {
-      topButtons[i].style.backgroundColor = "#334E68";
-    }
-    var spanTexts = document.querySelectorAll("span");
-    for (var i = 0; i < spanTexts.length; i++) {
-      spanTexts[i].style.color = "#BCCCDC";
-    }
-    var labelTexts = document.querySelectorAll("label");
-    for (var i = 0; i < labelTexts.length; i++) {
-      labelTexts[i].style.color = "#BCCCDC";
-    }
-    var h5Texts = document.querySelectorAll("h5");
-    for (var i = 0; i < h5Texts.length; i++) {
-      h5Texts[i].style.color = "#BCCCDC";
-    }
-    var navbarItems = document.querySelectorAll(".navbar-item");
-    for (var i = 0; i < navbarItems.length; i++) {
-      navbarItems[i].style.color = "white";
-      navbarItems[i].classList.add('nightmode');
-    }
-    var tableHeaders = document.querySelectorAll("tr");
-    for (var i = 0; i < tableHeaders.length; i++) {
-      tableHeaders[i].style.backgroundColor = "#102A43";
-      tableHeaders[i].style.color = "#BCCCDC";
-    }
-    var tableText = document.querySelectorAll("td");
-    for (var i = 0; i < tableText.length; i++) {
-      tableText[i].style.color = "#BCCCDC";
-    }
-    var tableTextHeaders = document.querySelectorAll("th");
-    for (var i = 0; i < tableTextHeaders.length; i++) {
-      tableTextHeaders[i].style.color = "#BCCCDC";
-    }
-  } else {
-    document.getElementById("nightbutton").style.display = "flex";
-    document.getElementById("lightbutton").style.display = "none";
-  }
-}
-
-function logout() {
-  signOut(auth);
-  window.location.href = "index.html";
-}
-
-function setNightMode() {
-  document.cookie = "theme=night";
-  document.getElementById("html").style.transition = "0.3s";
-  document.querySelector("nav").style.transition = "0.3s";
-  renderTheme();
-}
-
-function setLightMode() {
-  document.cookie = "theme=light";
-  location.reload();
 }
 
 export { logout, setLightMode, setNightMode, addFilterTags };

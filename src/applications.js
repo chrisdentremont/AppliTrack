@@ -1,12 +1,7 @@
 document.querySelector("html").classList.remove("is-clipped");
 renderTheme();
 import { initializeApp } from "firebase/app";
-import {
-  getAuth,
-  signOut,
-  onAuthStateChanged,
-  GoogleAuthProvider,
-} from "firebase/auth";
+import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import {
   getFirestore,
   doc,
@@ -72,7 +67,9 @@ function setLightMode() {
   location.reload();
 }
 
-//Switch styles of objects to dark theme
+/**
+ * Function to change styles of present DOM elements to night mode color
+ */
 function renderTheme() {
   let cookie = {};
   document.cookie.split(";").forEach(function (el) {
@@ -87,7 +84,7 @@ function renderTheme() {
     document.getElementById("newAppTitle").style.color = "#BCCCDC";
     document.getElementById("settingsTitle").style.color = "#BCCCDC";
     document.querySelector("nav").style.backgroundColor = "#102A43";
-    document.querySelector("nav").classList.remove('has-shadow');
+    document.querySelector("nav").classList.remove("has-shadow");
     document.querySelector("#sortContent").style.backgroundColor = "#102A43";
     document.querySelector("#searchContent").style.backgroundColor = "#102A43";
     document.getElementById("addapplication").style.backgroundColor = "#00897B";
@@ -118,11 +115,11 @@ function renderTheme() {
     var navbarItems = document.querySelectorAll(".navbar-item");
     for (var i = 0; i < navbarItems.length; i++) {
       navbarItems[i].style.color = "white";
-      navbarItems[i].classList.add('nightmode');
+      navbarItems[i].classList.add("nightmode");
     }
     var cardContents = document.querySelectorAll(".card-content");
     for (var i = 0; i < cardContents.length; i++) {
-      if(cardContents[i].style.backgroundColor == ""){
+      if (cardContents[i].style.backgroundColor == "") {
         cardContents[i].style.backgroundColor = "#334E68";
       }
     }
@@ -132,7 +129,10 @@ function renderTheme() {
     }
     var pTexts = document.querySelectorAll("p");
     for (var i = 0; i < pTexts.length; i++) {
-      if(pTexts[i].parentElement.classList.contains('card-content') && pTexts[i].parentElement.style.backgroundColor != "rgb(51, 78, 104)"){
+      if (
+        pTexts[i].parentElement.classList.contains("card-content") &&
+        pTexts[i].parentElement.style.backgroundColor != "rgb(51, 78, 104)"
+      ) {
         continue;
       }
       pTexts[i].style.color = "#BCCCDC";
@@ -140,6 +140,7 @@ function renderTheme() {
     var topButtons = document.querySelectorAll(".topbutton");
     for (var i = 0; i < topButtons.length; i++) {
       topButtons[i].style.backgroundColor = "#334E68";
+      topButtons[i].style.borderColor = "#102A43";
     }
     var dropdownItems = document.querySelectorAll(".dropdown-item");
     for (var i = 0; i < dropdownItems.length; i++) {
@@ -220,14 +221,12 @@ const settingsCardDisplay = document.querySelector("#displaySelect");
 
 //Application Form Modal
 const newAppButton = document.querySelector("#addapplication");
-let isDuplicate = false;
 const newAppTitle = document.querySelector("#newAppTitle");
 const modalBg = document.querySelector("#formModalBg");
 const modal = document.querySelector("#formModal");
 
 //Application Form
 const applicationForm = document.querySelector("#applicationform");
-var appFormLocationField = applicationForm.addlocation;
 const formSubmitButton = document.querySelector("#formsubmit");
 const invalidInput = document.querySelector("#invalidinput");
 
@@ -236,9 +235,7 @@ const viewModal = document.querySelector("#viewModal");
 const viewModalBg = document.querySelector("#viewModalBg");
 const viewModalContent = document.querySelector("#viewModalContent");
 const viewModalForm = document.querySelector("#viewappform");
-var viewFormLocationField = viewModalForm.viewlocation;
 var editModalButton;
-var applicationID = "";
 
 //Delete Modal
 const deleteModal = document.querySelector("#deleteModal");
@@ -812,7 +809,7 @@ function sortByColor(a, b) {
 }
 
 /**
- * A function that runs when the page is loaded and displays
+ * A function that runs when the user is authenticated and displays
  * application cards
  *
  * The function is passed all of the application data from
@@ -948,6 +945,10 @@ function sortCards(method) {
   DisplayApplicationCards(appsToDisplay);
 }
 
+/**
+ * Gets the form results from settings form and applies it to the user settings
+ * stored in their database document
+ */
 settingsForm.addEventListener("submit", async (e) => {
   e.preventDefault();
   var settings = settingsForm.elements;
@@ -1032,6 +1033,11 @@ applicationForm.addEventListener("submit", async (e) => {
   }
 });
 
+/**
+ * A function that parses through the view application form results
+ * and updates the corresponding application entry in the database
+ * with the form results
+ */
 const viewAppForm = document.querySelector("#viewappform");
 viewAppForm.addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -1528,6 +1534,10 @@ function editCard() {
   newAppTitle.textContent = "Editing " + values[0];
   formSubmitButton.textContent = "Submit Changes";
 }
+
+/**
+ * Modal close buttons
+ */
 
 const appModalDelete = document.querySelector("#appCloseButton");
 appModalDelete.addEventListener("click", () => {
