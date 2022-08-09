@@ -40,6 +40,7 @@ function initMap(applications) {
   bounds.extend(new google.maps.LatLng(49.000282, -101.37085));
   map.setCenter(bounds.getCenter());
   map.fitBounds(bounds);
+  var group = [];
   for (const i in applications) {
     if (applications[i][4].length < 1) {
       continue;
@@ -57,10 +58,28 @@ function initMap(applications) {
           const longitude = data.results[0].geometry.location.lng;
 
           const loc = { lat: latitude, lng: longitude };
+          if (/^[A-Za-z\s]*$/.test(applications[i][0])) {
+            var firstLetter = applications[i][0].toUpperCase().charAt(0);
+          } else {
+            var firstLetter = "";
+          }
+          var markerString;
+          if (applications[i][8] != "None") {
+            markerString =
+              "markers/" +
+              applications[i][8].toLowerCase() +
+              "_Marker" +
+              firstLetter +
+              ".png";
+          } else {
+            markerString = "markers/brown_Marker" + firstLetter + ".png";
+          }
           const marker = new google.maps.Marker({
             position: loc,
             map: map,
+            icon: markerString,
           });
+          group.push(marker);
           const contentString =
             `<h1><b>${applications[i][1]} at</b></h1>` +
             `<p><b>${applications[i][0]}</b></p>` +
@@ -80,6 +99,12 @@ function initMap(applications) {
             }</p>`;
           var infowindow = new google.maps.InfoWindow({
             content: contentString,
+          });
+          google.maps.event.addListener(infowindow, "domready", function () {
+            var closeButtons = document.querySelectorAll(".gm-ui-hover-effect");
+            for (var i = 0; i < closeButtons.length; i++) {
+              closeButtons[i].style.display = "none";
+            }
           });
           google.maps.event.addListener(marker, "mouseover", function () {
             infowindow.open(map, marker);

@@ -1,36 +1,39 @@
 html {
-    background-size: cover;
-    background-color: rgb(241, 241, 241);
-  }
-
+  background-size: cover;
+  background-color: rgb(241, 241, 241);
+}
 
 #title-body {
-    padding-left: 10%;
-    padding-right: 10%;
-    padding-bottom: 0%;
-  }
-  
-#navbarstart {
-    padding-left: 3%;
-} 
+  padding-left: 10%;
+  padding-right: 10%;
+  padding-bottom: 0%;
+}
 
-.navbar-item.nightmode:hover{
+#navbarstart {
+  padding-left: 3%;
+}
+
+.navbar-start .navbar-item:hover {
+  transition: 0.3s;
+}
+
+.navbar-item.nightmode:hover {
   background-color: black;
 }
 
 #sitestable {
-    width: 90%;
+  width: 90%;
 }
 
 #jobsites {
-    overflow: hidden;
-    padding-top: 0%;
-    padding-left: 10%;
-  }
+  overflow: hidden;
+  padding-top: 0%;
+  padding-left: 10%;
+}
 
 .table > tbody > tr > td {
-    vertical-align: middle;
-}  
+  vertical-align: middle;
+}
 
 #siteNameTD {
   width: 300px;
@@ -40,7 +43,7 @@ html {
 }
 
 #siteLogoTD {
-  width:  96px;
+  width: 96px;
 }
 
 #sitetablerow {

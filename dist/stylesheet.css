@@ -63,9 +63,8 @@ html {
   border: 0px;
 }
 
-.navbar-item:hover {
+.navbar-start .navbar-item:hover {
   transition: 0.3s;
-  background-color: blue;
 }
 
 .navbar-item.nightmode:hover {
