@@ -909,7 +909,6 @@ newAppButton.addEventListener("click", () => {
  * Clears application form and disables it when user clicks away.
  */
 modalBg.addEventListener("click", () => {
-  isDuplicate = false;
   document.querySelector("html").classList.remove("is-clipped");
   modal.classList.remove("is-active");
   applicationForm.reset();
@@ -1518,7 +1517,6 @@ function editCard() {
   viewModal.classList.remove("is-active");
   //Add form modal and fill in pre-existing info
 
-  isDuplicate = true;
   modal.classList.add("is-active");
   document.querySelector("#companyNameField").value = values[0];
   document.querySelector("#positionField").value = values[1];
