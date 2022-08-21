@@ -1,0 +1,23 @@
+.listselect {
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    margin-left: 10%;
+}
+
+.cardselect {
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    z-index: 1;
+    position: absolute;
+    margin-left: 87%;
+    margin-top: 5%;
+}
+
+.checkIcon {
+    position: relative;
+    float: right;
+    padding-right: 10%;
+    padding-top: 4%;
+}

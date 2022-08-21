@@ -25,6 +25,8 @@ const auth = getAuth();
 const db = getFirestore();
 
 var userSettings = {};
+var selectedCards = [];
+document.querySelector('#selectedbutton').style.display = "none";
 
 const verifyEmail = document.querySelector("#verifyemail");
 var isEmailVerified;
@@ -281,6 +283,8 @@ function isDateAgo(date, timeframe) {
  * @param {*} applications
  */
 function DisplayApplicationCards(applications) {
+  document.querySelector('#selectedbutton').style.display = "none";
+  selectedCards = [];
   let check = false;
   (function (a) {
     if (
@@ -309,6 +313,12 @@ function DisplayApplicationCards(applications) {
       newCard.classList.add("card");
       var cardID = "" + currentID;
       newCard.setAttribute("id", cardID);
+      var selectButton = document.createElement("input");
+      selectButton.setAttribute('type', "checkbox");
+      selectButton.classList.add("tablebutton", "cardselect");
+      selectButton.setAttribute("id", "check" + cardID);
+      selectButton.onclick = selectCard;
+      newCard.appendChild(selectButton);
 
       //Card content
       var cardContent = document.createElement("div");
@@ -387,21 +397,25 @@ function DisplayApplicationCards(applications) {
           document.getElementById("viewMapButton").style.display = "block";
         }
 
-        document
-          .getElementById("viewInfoButton")
-          .addEventListener("click", () => {
-            document.getElementById("viewPage").style.display = "block";
-            document.getElementById("viewMap").style.display = "none";
-            document
-              .getElementById("viewInfoButton")
-              .classList.add("is-active");
-            document
-              .getElementById("viewMapButton")
-              .classList.remove("is-active");
-            document
-              .getElementById("locationMap")
-              .classList.remove("is-active");
-          });
+        document.getElementById("viewInfoButton").addEventListener("click", () => {
+          document.getElementById("viewPage").style.display = "block";
+          document.getElementById("viewMap").style.display = "none";
+          //document.getElementById("viewEvents").style.display = "none";
+          document.getElementById("viewInfoButton").classList.add("is-active");
+          document.getElementById("viewMapButton").classList.remove("is-active");
+          //document.getElementById('viewEventsButton').classList.remove('is-active');
+          document.getElementById("locationMap").classList.remove("is-active");
+        });
+
+        // document.getElementById('viewEventsButton').addEventListener("click", () => {
+        //   document.getElementById("viewPage").style.display = "none";
+        //   document.getElementById("viewMap").style.display = "none";
+        //   document.getElementById("viewEvents").style.display = "block";
+        //   document.getElementById("viewInfoButton").classList.remove("is-active");
+        //   document.getElementById("viewMapButton").classList.remove("is-active");
+        //   document.getElementById('viewEventsButton').classList.add('is-active');
+        //   document.getElementById("locationMap").classList.remove("is-active");
+        // });
 
         renderTheme();
         document.querySelector("html").classList.add("is-clipped");
@@ -412,8 +426,10 @@ function DisplayApplicationCards(applications) {
         document.querySelector("html").classList.remove("is-clipped");
         document.getElementById("viewPage").style.display = "block";
         document.getElementById("viewMap").style.display = "none";
+        //document.getElementById("viewEvents").style.display = "none";
         document.getElementById("viewInfoButton").classList.add("is-active");
         document.getElementById("viewMapButton").classList.remove("is-active");
+        //document.getElementById("viewEventsButton").classList.remove("is-active");
         document.getElementById("locationMap").classList.remove("is-active");
         const viewInvalidInput = document.getElementById("viewInvalidInput");
         viewInvalidInput.style.display = "none";
@@ -508,6 +524,7 @@ function DisplayApplicationCards(applications) {
     for (var i = 0, element; (element = applications[i++]); ) {
       const currentID = element[0];
       const currentDisplay = element[1];
+      var cardID = "" + currentID;
 
       var newRow = document.createElement("tr");
       if (currentDisplay[8] == "Blue") {
@@ -526,6 +543,9 @@ function DisplayApplicationCards(applications) {
         newRow.style.backgroundColor = "#FFFFB5";
       }
       var companyName = document.createElement("td");
+      companyName.classList.add('companyName');
+      companyName.setAttribute("id", cardID);
+      companyName.onclick = selectCard;
       if (currentDisplay[0].length >= 30) {
         companyName.textContent = currentDisplay[0].substring(0, 29) + "...";
       } else {
@@ -568,6 +588,11 @@ function DisplayApplicationCards(applications) {
       var deleteButton = document.createElement("button");
       deleteButton.classList.add("button", "tablebutton", "is-danger");
       deleteButton.textContent = "Delete";
+      var selectButton = document.createElement("input");
+      selectButton.setAttribute('type', "checkbox");
+      selectButton.classList.add("tablebutton", "listselect");
+      selectButton.setAttribute("id", "check" + cardID);
+      selectButton.onclick = selectCard;
       viewButton.addEventListener("click", () => {
         var viewPosTitle = document.querySelector("#viewPositionTitle");
         var viewComTitle = document.querySelector("#viewCompanyTitle");
@@ -594,21 +619,25 @@ function DisplayApplicationCards(applications) {
           document.getElementById("viewMapButton").style.display = "block";
         }
 
-        document
-          .getElementById("viewInfoButton")
-          .addEventListener("click", () => {
-            document.getElementById("viewPage").style.display = "block";
-            document.getElementById("viewMap").style.display = "none";
-            document
-              .getElementById("viewInfoButton")
-              .classList.add("is-active");
-            document
-              .getElementById("viewMapButton")
-              .classList.remove("is-active");
-            document
-              .getElementById("locationMap")
-              .classList.remove("is-active");
-          });
+        document.getElementById("viewInfoButton").addEventListener("click", () => {
+          document.getElementById("viewPage").style.display = "block";
+          document.getElementById("viewMap").style.display = "none";
+          //document.getElementById("viewEvents").style.display = "none";
+          document.getElementById("viewInfoButton").classList.add("is-active");
+          document.getElementById("viewMapButton").classList.remove("is-active");
+          //document.getElementById('viewEventsButton').classList.remove('is-active');
+          document.getElementById("locationMap").classList.remove("is-active");
+        });
+
+        // document.querySelector('#viewEventsButton').addEventListener("click", () => {
+        //   document.getElementById("viewPage").style.display = "none";
+        //   document.getElementById("viewMap").style.display = "none";
+        //   document.getElementById("viewEvents").style.display = "block";
+        //   document.getElementById("viewInfoButton").classList.remove("is-active");
+        //   document.getElementById("viewMapButton").classList.remove("is-active");
+        //   document.getElementById('viewEventsButton').classList.add('is-active');
+        //   document.getElementById("locationMap").classList.remove("is-active");
+        // });
 
         renderTheme();
         document.querySelector("html").classList.add("is-clipped");
@@ -619,8 +648,10 @@ function DisplayApplicationCards(applications) {
         document.querySelector("html").classList.remove("is-clipped");
         document.getElementById("viewPage").style.display = "block";
         document.getElementById("viewMap").style.display = "none";
+        //document.getElementById("viewEvents").style.display = "none";
         document.getElementById("viewInfoButton").classList.add("is-active");
         document.getElementById("viewMapButton").classList.remove("is-active");
+        //document.getElementById("viewEventsButton").classList.remove("is-active");
         document.getElementById("locationMap").classList.remove("is-active");
         const viewInvalidInput = document.getElementById("viewInvalidInput");
         viewInvalidInput.style.display = "none";
@@ -651,6 +682,7 @@ function DisplayApplicationCards(applications) {
 
       buttonTD.appendChild(viewButton);
       buttonTD.appendChild(deleteButton);
+      buttonTD.appendChild(selectButton);
       newRow.appendChild(companyName);
       newRow.appendChild(position);
       newRow.appendChild(positionType);
@@ -660,6 +692,50 @@ function DisplayApplicationCards(applications) {
     }
   }
   renderTheme();
+}
+
+const selectCard = function() {
+  let id = this.id.substring(5);
+  if(!this.checked){
+    const index = selectedCards.indexOf(id);
+    if(index > -1){
+      selectedCards.splice(index, 1);
+    }
+    if(selectedCards.length < 1){
+      document.querySelector('#selectedbutton').style.display = "none";
+    }
+    document.querySelector('#selectbuttontext').textContent = selectedCards.length + " selected";
+  }else{
+    selectedCards.push(id);
+    if(selectedCards.length > 0){
+      document.querySelector('#selectedbutton').style.display = "block";
+    }
+    document.querySelector('#selectbuttontext').textContent = selectedCards.length + " selected";
+  }
+}
+
+async function selectFunction(method){
+  if(method == 'delete'){
+    deleteModal.classList.add("is-active");
+    document.querySelector("html").classList.add("is-clipped");
+    deleteModalBg.addEventListener("click", () => {
+      document.querySelector("html").classList.remove("is-clipped");
+      deleteModal.classList.remove("is-active");
+    });
+    deleteAppText.textContent =
+      "Are you sure you want to delete " + selectedCards.length + " application(s)?";
+    deleteAppCloseButton.addEventListener("click", () => {
+      deleteModal.classList.remove("is-active");
+    });
+    deleteAppButton.addEventListener("click", async () => {
+      var obj = {};
+      for(var i = 0; i < selectedCards.length; i++){
+            obj[selectedCards[i]] = deleteField();
+      }
+      await updateDoc(doc(db, "users", auth.currentUser.uid), obj);
+      location.reload();
+    });
+  }
 }
 
 /**
@@ -870,10 +946,7 @@ settingsButton.addEventListener("click", () => {
 
   if (check) {
     settingsCardDisplay.setAttribute("disabled", "true");
-    var mobileText = document.createElement("p");
-    mobileText.innerHTML =
-      "<i>Note: Display change not available on mobile</i>";
-    settingsForm.appendChild(mobileText);
+    document.querySelector('#mobiletext').innerHTML = "<i>Note: Display style change not available on mobile</i>";
   }
 
   if (userSettings[0] == "true") {
@@ -909,7 +982,6 @@ newAppButton.addEventListener("click", () => {
  * Clears application form and disables it when user clicks away.
  */
 modalBg.addEventListener("click", () => {
-  isDuplicate = false;
   document.querySelector("html").classList.remove("is-clipped");
   modal.classList.remove("is-active");
   applicationForm.reset();
@@ -1518,7 +1590,6 @@ function editCard() {
   viewModal.classList.remove("is-active");
   //Add form modal and fill in pre-existing info
 
-  isDuplicate = true;
   modal.classList.add("is-active");
   document.querySelector("#companyNameField").value = values[0];
   document.querySelector("#positionField").value = values[1];
@@ -1558,6 +1629,7 @@ viewCloseButton.addEventListener("click", () => {
   document.getElementById("viewMap").style.display = "none";
   document.getElementById("viewInfoButton").classList.add("is-active");
   document.getElementById("viewMapButton").classList.remove("is-active");
+  document.getElementById("viewEventsButton").classList.remove("is-active");
   document.getElementById("locationMap").classList.remove("is-active");
   viewModal.classList.remove("is-active");
   document.querySelector("html").classList.remove("is-clipped");
@@ -1573,4 +1645,5 @@ export {
   sortCards,
   setLightMode,
   setNightMode,
+  selectFunction,
 };

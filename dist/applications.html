@@ -8,6 +8,7 @@
     <script src="https://kit.fontawesome.com/d36d0a95a4.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css" />
     <link rel="stylesheet" href="stylesheets/stylesheet.css">
+    <link rel="stylesheet" href="stylesheets/applicationsheet.css">
     <link rel="icon" href="images/logo2.png">
   </head>
 
@@ -301,6 +302,24 @@
             </div>
           </div>
         </div>
+        
+        <div class="dropdown is-hoverable" id="selectedbutton">
+          <div class="dropdown-trigger">
+            <button class="button topbutton" aria-haspopup="true" aria-controls="dropdown-menu">
+              <span class="icon is-small">
+                <i class="fas fa-angle-down"></i>
+              </span>
+              <span id="selectbuttontext">1 Selected</span>
+            </button>
+          </div>
+          <div class="dropdown-menu"role="menu">
+            <div class="dropdown-content" id="sortContent">
+              <a href="#" class="dropdown-item" value="Alphabetical" onClick="javascript:EntryPoint.selectFunction('delete')">
+                Delete
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="modal" id="settingsModal">
@@ -335,6 +354,7 @@
                 </select>
               </div>
             </div>
+            <p id="mobiletext"></p>
             <br />
             <button class="button is-rounded is-primary is-fullwidth" type="submit" id="settingssubmit">Save
               Changes</button>
@@ -462,8 +482,8 @@
         <div class="modal-content has-background-white" id="viewModalContent">
           <button class="delete" id="viewCloseButton" style="margin-right:5%; margin-top:5%"></button>
           <div class="cardtop">
-            <h1 class="title ml-6 mt-6" id="viewPositionTitle">Software Engineer Intern</h1>
-            <h3 class="subtitle mx-6 mb-4" id="viewCompanyTitle">Google</p>
+            <h1 class="title ml-6 mt-6" id="viewPositionTitle"></h1>
+            <h3 class="subtitle mx-6 mb-4" id="viewCompanyTitle"></p>
           </div>
           <div hidden class="notification is-danger has-text-centered" id="viewInvalidInput" style="margin: 10px;">
           </div>
@@ -477,6 +497,12 @@
                   <span class="icon is-small"><i class="fas fa-map" aria-hidden="true"></i></span>
                   <span>Map</span>
                 </a></li>
+                <!--
+                <li id="viewEventsButton"><a>
+                  <span class="icon is-small"><i class="fas fa-address-book" aria-hidden="true"></i></span>
+                  <span>Events</span>
+                </a></li>
+                -->
             </ul>
           </div>
           <div id="viewPage">
@@ -590,11 +616,14 @@
               </section>
             </form>
           </div>
+
           <div id="viewMap">
             <div id="locationMap" style="margin-bottom: 10px;"></div>
             <h3 id="mapErrorText" class="title is-4 has-text-centered mb-6">Invalid address in location field. Please
               enter a valid address.</h3>
           </div>
+
+          <!--<div id="viewEvents"></div>-->
         </div>
       </div>
     </div>
@@ -636,9 +665,7 @@
       );
 
       let locationField = document.getElementById('viewLocationField');
-      document
-        .getElementById("viewMapButton")
-        .addEventListener("click", () => {
+      document.getElementById("viewMapButton").addEventListener("click", () => {
           if (document.getElementById('viewMapButton').classList.contains('is-active')) {
             return;
           }
@@ -673,12 +700,12 @@
           document.getElementById('locationMap').style.height = document.getElementById('viewappform').offsetHeight;
           document.getElementById('mapErrorText').style.display = "none";
           document.getElementById("viewPage").style.display = "none";
+          //document.getElementById("viewEvents").style.display = "none";
           document.getElementById("viewMap").style.display = "block";
           document.getElementById("viewMapButton").classList.add("is-active");
           document.getElementById('locationMap').classList.add('is-active');
-          document
-            .getElementById("viewInfoButton")
-            .classList.remove("is-active");
+          document.getElementById("viewInfoButton").classList.remove("is-active");
+          //document.getElementById("viewEventsButton").classList.remove("is-active");
         });
     }
   </script>
