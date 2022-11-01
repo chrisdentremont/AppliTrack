@@ -1,4 +1,4 @@
-# ![AppliTrack](dist/images/logo.png) v1.1.5
+# ![AppliTrack](dist/images/logo.png) v1.1.6
 
 AppliTrack is a web application that allows you to keep track of your job applications throughout your job search.
 
@@ -11,10 +11,16 @@ AppliTrack is a web application that allows you to keep track of your job applic
 
 ## Changelog
 
+### November 1st, 2022 (v1.1.6)
+
+- Changed night mode colors to be a bit more appealing
+
 ### August 21st, 2022 (v.1.1.5)
+
 - Added multiple selection to cards/rows for group deleting
 
 ### August 8th, 2022 (v1.1.4)
+
 - Added new map tab where the location of every application can be viewed at once (if location field is valid)
 
 ### August 2nd, 2022 (v1.1.3)
