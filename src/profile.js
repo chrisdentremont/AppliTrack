@@ -9,6 +9,7 @@ import {
   deleteUser,
 } from "firebase/auth";
 import { getDoc, deleteDoc, doc, getFirestore } from "firebase/firestore";
+import { renderTheme } from "./nightmode.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
@@ -23,73 +24,6 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
-
-function setNightMode() {
-  document.cookie = "theme=night";
-  document.getElementById("html").style.transition = "0.3s";
-  document.querySelector("nav").style.transition = "0.3s";
-  renderTheme();
-}
-
-function setLightMode() {
-  document.cookie = "theme=light";
-  location.reload();
-}
-
-/**
- * Function to change styles of present DOM elements to night mode color
- */
-function renderTheme() {
-  let cookie = {};
-  document.cookie.split(";").forEach(function (el) {
-    let [key, value] = el.split("=");
-    cookie[key.trim()] = value;
-  });
-  if (cookie["theme"] == "night") {
-    document.getElementById("nightbutton").style.display = "none";
-    document.getElementById("lightbutton").style.display = "flex";
-    document
-      .getElementById("resetNameModalColor")
-      .classList.remove("has-background-white");
-    document
-      .getElementById("deleteAccountModalColor")
-      .classList.remove("has-background-white");
-    document.getElementById("html").style.backgroundColor = "#243B53";
-    document.querySelector("nav").style.backgroundColor = "#102A43";
-    document.querySelector("nav").classList.remove("has-shadow");
-    document.querySelector(".box").style.backgroundColor = "#102A43";
-    var titleTexts = document.querySelectorAll(".title");
-    for (var i = 0; i < titleTexts.length; i++) {
-      titleTexts[i].style.color = "#BCCCDC";
-    }
-    var subtitleTexts = document.querySelectorAll(".subtitle");
-    for (var i = 0; i < subtitleTexts.length; i++) {
-      subtitleTexts[i].style.color = "#BCCCDC";
-    }
-    var spanTexts = document.querySelectorAll("span");
-    for (var i = 0; i < spanTexts.length; i++) {
-      spanTexts[i].style.color = "#BCCCDC";
-    }
-    var modalBgs = document.querySelectorAll(".modal-content");
-    for (var i = 0; i < modalBgs.length; i++) {
-      modalBgs[i].style.backgroundColor = "#243B53";
-    }
-    var navbarItems = document.querySelectorAll(".navbar-item");
-    for (var i = 0; i < navbarItems.length; i++) {
-      navbarItems[i].style.color = "white";
-      navbarItems[i].classList.add("nightmode");
-    }
-  } else {
-    document.getElementById("nightbutton").style.display = "flex";
-    document.getElementById("lightbutton").style.display = "none";
-    document
-      .getElementById("resetNameModalColor")
-      .classList.add("has-background-white");
-    document
-      .getElementById("deleteAccountModalColor")
-      .classList.add("has-background-white");
-  }
-}
 
 //Reset Name
 const resetNameForm = document.querySelector("#nameresetform");
@@ -184,12 +118,4 @@ changeNameModalDelete.addEventListener("click", () => {
   modalBackground.click();
 });
 
-export {
-  logout,
-  changeName,
-  changePass,
-  deleteAccount,
-  deleteAUser,
-  setLightMode,
-  setNightMode,
-};
+export { logout, changeName, changePass, deleteAccount, deleteAUser };

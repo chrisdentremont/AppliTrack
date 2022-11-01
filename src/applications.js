@@ -1,5 +1,5 @@
 document.querySelector("html").classList.remove("is-clipped");
-renderTheme();
+
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import {
@@ -9,6 +9,7 @@ import {
   updateDoc,
   deleteField,
 } from "firebase/firestore";
+import { renderTheme } from "./nightmode.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
@@ -53,149 +54,6 @@ onAuthStateChanged(auth, async (user) => {
 function logout() {
   signOut(auth);
   window.location.href = "index.html";
-}
-
-function setNightMode() {
-  document.cookie = "theme=night";
-  document.getElementById("html").style.transition = "0.3s";
-  document.querySelector("nav").style.transition = "0.3s";
-  renderTheme();
-}
-
-function setLightMode() {
-  document.cookie = "theme=light";
-  location.reload();
-}
-
-/**
- * Function to change styles of present DOM elements to night mode color
- */
-function renderTheme() {
-  let cookie = {};
-  document.cookie.split(";").forEach(function (el) {
-    let [key, value] = el.split("=");
-    cookie[key.trim()] = value;
-  });
-  if (cookie["theme"] == "night") {
-    document.getElementById("nightbutton").style.display = "none";
-    document.getElementById("lightbutton").style.display = "flex";
-    document.getElementById("html").style.backgroundColor = "#243B53";
-    document.getElementById("appTitle").style.color = "#BCCCDC";
-    document.getElementById("newAppTitle").style.color = "#BCCCDC";
-    document.getElementById("settingsTitle").style.color = "#BCCCDC";
-    document.querySelector("nav").style.backgroundColor = "#102A43";
-    document.querySelector("nav").classList.remove("has-shadow");
-    document.querySelector("#sortContent").style.backgroundColor = "#102A43";
-    document.querySelector("#searchContent").style.backgroundColor = "#102A43";
-    document.getElementById("addapplication").style.backgroundColor = "#00897B";
-    document
-      .getElementById("viewModalContent")
-      .classList.remove("has-background-white");
-    document
-      .getElementById("addModalContent")
-      .classList.remove("has-background-white");
-    document
-      .getElementById("settingsModalContent")
-      .classList.remove("has-background-white");
-    document
-      .getElementById("deleteModalContent")
-      .classList.remove("has-background-white");
-    var h1texts = document.querySelectorAll("h1");
-    for (var i = 0; i < h1texts.length; i++) {
-      h1texts[i].style.color = "#BCCCDC";
-    }
-    var h3texts = document.querySelectorAll("h3");
-    for (var i = 0; i < h3texts.length; i++) {
-      h3texts[i].style.color = "#BCCCDC";
-    }
-    var h5texts = document.querySelectorAll("h5");
-    for (var i = 0; i < h5texts.length; i++) {
-      h5texts[i].style.color = "#BCCCDC";
-    }
-    var navbarItems = document.querySelectorAll(".navbar-item");
-    for (var i = 0; i < navbarItems.length; i++) {
-      navbarItems[i].style.color = "white";
-      navbarItems[i].classList.add("nightmode");
-    }
-    var cardContents = document.querySelectorAll(".card-content");
-    for (var i = 0; i < cardContents.length; i++) {
-      if (cardContents[i].style.backgroundColor == "") {
-        cardContents[i].style.backgroundColor = "#334E68";
-      }
-    }
-    var cardFooters = document.querySelectorAll(".card-footer-item");
-    for (var i = 0; i < cardFooters.length; i++) {
-      cardFooters[i].style.backgroundColor = "#102A43";
-    }
-    var pTexts = document.querySelectorAll("p");
-    for (var i = 0; i < pTexts.length; i++) {
-      if (
-        pTexts[i].parentElement.classList.contains("card-content") &&
-        pTexts[i].parentElement.style.backgroundColor != "rgb(51, 78, 104)"
-      ) {
-        continue;
-      }
-      pTexts[i].style.color = "#BCCCDC";
-    }
-    var topButtons = document.querySelectorAll(".topbutton");
-    for (var i = 0; i < topButtons.length; i++) {
-      topButtons[i].style.backgroundColor = "#334E68";
-      topButtons[i].style.borderColor = "#102A43";
-    }
-    var dropdownItems = document.querySelectorAll(".dropdown-item");
-    for (var i = 0; i < dropdownItems.length; i++) {
-      dropdownItems[i].style.color = "#BCCCDC";
-    }
-    var spanTexts = document.querySelectorAll("span");
-    for (var i = 0; i < spanTexts.length; i++) {
-      spanTexts[i].style.color = "#BCCCDC";
-    }
-    var modalBgs = document.querySelectorAll(".modal-content");
-    for (var i = 0; i < modalBgs.length; i++) {
-      modalBgs[i].style.backgroundColor = "#243B53";
-    }
-    var labelTexts = document.querySelectorAll("label");
-    for (var i = 0; i < labelTexts.length; i++) {
-      labelTexts[i].style.color = "#BCCCDC";
-    }
-    var h5Texts = document.querySelectorAll("h5");
-    for (var i = 0; i < h5Texts.length; i++) {
-      h5Texts[i].style.color = "#BCCCDC";
-    }
-    var modalHeaders = document.querySelectorAll("#viewModalHeader");
-    for (var i = 0; i < modalHeaders.length; i++) {
-      modalHeaders[i].style.backgroundColor = "#102A43";
-      modalHeaders[i].style.color = "#BCCCDC";
-    }
-    var tableHeaders = document.querySelectorAll("tr");
-    for (var i = 0; i < tableHeaders.length; i++) {
-      tableHeaders[i].style.backgroundColor = "#102A43";
-      tableHeaders[i].style.color = "#BCCCDC";
-    }
-    var tableText = document.querySelectorAll("td");
-    for (var i = 0; i < tableText.length; i++) {
-      tableText[i].style.color = "#BCCCDC";
-    }
-    var tableTextHeaders = document.querySelectorAll("th");
-    for (var i = 0; i < tableTextHeaders.length; i++) {
-      tableTextHeaders[i].style.color = "#BCCCDC";
-    }
-  } else {
-    document.getElementById("nightbutton").style.display = "flex";
-    document.getElementById("lightbutton").style.display = "none";
-    document
-      .getElementById("viewModalContent")
-      .classList.add("has-background-white");
-    document
-      .getElementById("addModalContent")
-      .classList.add("has-background-white");
-    document
-      .getElementById("settingsModalContent")
-      .classList.add("has-background-white");
-    document
-      .getElementById("deleteModalContent")
-      .classList.add("has-background-white");
-  }
 }
 
 const cardList = document.querySelector("#cards");
@@ -1563,12 +1421,4 @@ viewCloseButton.addEventListener("click", () => {
   viewInvalidInput.style.display = "none";
 });
 
-export {
-  editCard,
-  logout,
-  selectSearch,
-  search_applications,
-  sortCards,
-  setLightMode,
-  setNightMode,
-};
+export { editCard, logout, selectSearch, search_applications, sortCards };

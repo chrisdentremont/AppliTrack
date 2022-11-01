@@ -1,6 +1,7 @@
 renderTheme();
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
+import { renderTheme } from "./nightmode.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
@@ -28,92 +29,7 @@ function logout() {
   window.location.href = "index.html";
 }
 
-function setNightMode() {
-  document.cookie = "theme=night";
-  document.getElementById("html").style.transition = "0.3s";
-  document.querySelector("nav").style.transition = "0.3s";
-  renderTheme();
-}
-
-function setLightMode() {
-  document.cookie = "theme=light";
-  location.reload();
-}
-
-/**
- * Function to change styles of present DOM elements to night mode color
- */
-function renderTheme() {
-  let cookie = {};
-  document.cookie.split(";").forEach(function (el) {
-    let [key, value] = el.split("=");
-    cookie[key.trim()] = value;
-  });
-  if (cookie["theme"] == "night") {
-    document.getElementById("nightbutton").style.display = "none";
-    document.getElementById("lightbutton").style.display = "flex";
-    document.getElementById("html").style.backgroundColor = "#243B53";
-    document.querySelector("nav").style.backgroundColor = "#102A43";
-    document.querySelector("nav").classList.remove("has-shadow");
-    document.querySelector("#filterDropdown").style.backgroundColor = "#102A43";
-    var h1texts = document.querySelectorAll("h1");
-    for (var i = 0; i < h1texts.length; i++) {
-      h1texts[i].style.color = "#BCCCDC";
-    }
-    var h3texts = document.querySelectorAll("h3");
-    for (var i = 0; i < h3texts.length; i++) {
-      h3texts[i].style.color = "#BCCCDC";
-    }
-    var h5texts = document.querySelectorAll("h5");
-    for (var i = 0; i < h5texts.length; i++) {
-      h5texts[i].style.color = "#BCCCDC";
-    }
-    var pTexts = document.querySelectorAll("p");
-    for (var i = 0; i < pTexts.length; i++) {
-      pTexts[i].style.color = "#BCCCDC";
-    }
-    var topButtons = document.querySelectorAll(".topbutton");
-    for (var i = 0; i < topButtons.length; i++) {
-      topButtons[i].style.backgroundColor = "#334E68";
-      topButtons[i].style.borderColor = "#102A43";
-    }
-    var spanTexts = document.querySelectorAll("span");
-    for (var i = 0; i < spanTexts.length; i++) {
-      spanTexts[i].style.color = "#BCCCDC";
-    }
-    var labelTexts = document.querySelectorAll("label");
-    for (var i = 0; i < labelTexts.length; i++) {
-      labelTexts[i].style.color = "#BCCCDC";
-    }
-    var h5Texts = document.querySelectorAll("h5");
-    for (var i = 0; i < h5Texts.length; i++) {
-      h5Texts[i].style.color = "#BCCCDC";
-    }
-    var navbarItems = document.querySelectorAll(".navbar-item");
-    for (var i = 0; i < navbarItems.length; i++) {
-      navbarItems[i].style.color = "white";
-      navbarItems[i].classList.add("nightmode");
-    }
-    var tableHeaders = document.querySelectorAll("tr");
-    for (var i = 0; i < tableHeaders.length; i++) {
-      tableHeaders[i].style.backgroundColor = "#102A43";
-      tableHeaders[i].style.color = "#BCCCDC";
-    }
-    var tableText = document.querySelectorAll("td");
-    for (var i = 0; i < tableText.length; i++) {
-      tableText[i].style.color = "#BCCCDC";
-    }
-    var tableTextHeaders = document.querySelectorAll("th");
-    for (var i = 0; i < tableTextHeaders.length; i++) {
-      tableTextHeaders[i].style.color = "#BCCCDC";
-    }
-  } else {
-    document.getElementById("nightbutton").style.display = "flex";
-    document.getElementById("lightbutton").style.display = "none";
-  }
-}
-
-//Job Site Info
+//#region Job Site Info
 const AIA = {
   logo: "images/AIA.png",
   title: "American Institute of Architects",
@@ -462,6 +378,7 @@ const WayUp = {
   link: "https://www.wayup.com/",
   industries: ["Everything"],
 };
+//#endregion
 
 const sites = [
   AIA,
@@ -589,7 +506,7 @@ function CreateJobSiteTable() {
           sites[i].industries[j] == "Digital Design" ||
           sites[i].industries[j] == "Data Science"
         ) {
-          siteTag.style.backgroundColor = "darkblue";
+          siteTag.style.backgroundColor = "#187498";
         } else if (
           sites[i].industries[j] == "Sales" ||
           sites[i].industries[j] == "Product" ||
@@ -602,7 +519,7 @@ function CreateJobSiteTable() {
           sites[i].industries[j] == "Economics" ||
           sites[i].industries[j] == "Business"
         ) {
-          siteTag.style.backgroundColor = "red";
+          siteTag.style.backgroundColor = "#EB5353";
         } else if (
           sites[i].industries[j] == "BioTech" ||
           sites[i].industries[j] == "Biology" ||
@@ -612,7 +529,7 @@ function CreateJobSiteTable() {
           sites[i].industries[j] == "Education" ||
           sites[i].industries[j] == "Language"
         ) {
-          siteTag.style.backgroundColor = "green";
+          siteTag.style.backgroundColor = "#36AE7C";
         }
         siteTags.appendChild(siteTag);
       }
@@ -659,4 +576,4 @@ function addFilterTags() {
   CreateJobSiteTable();
 }
 
-export { logout, setLightMode, setNightMode, addFilterTags };
+export { logout, addFilterTags };
