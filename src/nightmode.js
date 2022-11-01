@@ -56,6 +56,11 @@ function renderTheme() {
       for (var i = 0; i < subtitleTexts.length; i++) {
         subtitleTexts[i].style.color = TEXT_COLOR;
       }
+
+      var placeholderTexts = document.querySelectorAll("::placeholder");
+      for (var i = 0; i < placeholderTexts.length; i++) {
+        placeholderTexts[i].style.color = TEXT_COLOR;
+      }
       //#endregion
     } catch {}
 
@@ -212,20 +217,7 @@ function renderTheme() {
     } catch {}
   } else {
     try {
-      document.getElementById("nightbutton").style.display = "flex";
-      document.getElementById("lightbutton").style.display = "none";
-      document
-        .getElementById("viewModalContent")
-        .classList.add("has-background-white");
-      document
-        .getElementById("addModalContent")
-        .classList.add("has-background-white");
-      document
-        .getElementById("settingsModalContent")
-        .classList.add("has-background-white");
-      document
-        .getElementById("deleteModalContent")
-        .classList.add("has-background-white");
+      //#region Login Page
       document
         .getElementById("logInModalColor")
         .classList.add("has-background-white");
@@ -238,10 +230,36 @@ function renderTheme() {
       document
         .getElementById("resetNameModalColor")
         .classList.add("has-background-white");
+      //#endregion
+    } catch {}
+
+    try {
+      //#region Application Page
+      document
+        .getElementById("viewModalContent")
+        .classList.add("has-background-white");
+      document
+        .getElementById("addModalContent")
+        .classList.add("has-background-white");
+      document
+        .getElementById("settingsModalContent")
+        .classList.add("has-background-white");
+      document
+        .getElementById("deleteModalContent")
+        .classList.add("has-background-white");
+      //#endregion
+    } catch {}
+
+    try {
+      //#region Account Page
       document
         .getElementById("deleteAccountModalColor")
         .classList.add("has-background-white");
+      //#endregion
     } catch {}
+
+    document.getElementById("nightbutton").style.display = "flex";
+    document.getElementById("lightbutton").style.display = "none";
   }
 }
 

@@ -12,6 +12,15 @@ import {
   signInWithPopup,
 } from "firebase/auth";
 import { getFirestore, doc, setDoc, getDoc } from "firebase/firestore";
+import { setLightMode, setNightMode } from "./nightmode.js";
+
+function callNightMode() {
+  setNightMode();
+}
+
+function callLightMode() {
+  setLightMode();
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
@@ -254,4 +263,12 @@ forgPassModalDelete.addEventListener("click", () => {
   modalBackground.click();
 });
 
-export { openLogIn, openSignUp, openForgPass, signInGoogle, logout };
+export {
+  openLogIn,
+  openSignUp,
+  openForgPass,
+  signInGoogle,
+  logout,
+  callLightMode,
+  callNightMode,
+};

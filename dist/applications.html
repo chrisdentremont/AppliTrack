@@ -45,12 +45,12 @@
           </div>
 
           <div class="navbar-end">
-            <a href="#" onclick="EntryPoint.setNightMode()" class="navbar-item" id="nightbutton">
+            <a href="#" onclick="EntryPoint.callNightMode()" class="navbar-item" id="nightbutton">
               <span class="icon is-medium">
                 <i class="fas fa-moon"></i>
               </span>
             </a>
-            <a href="#" onclick="EntryPoint.setLightMode()" class="navbar-item" id="lightbutton">
+            <a href="#" onclick="EntryPoint.callLightMode()" class="navbar-item" id="lightbutton">
               <span class="icon is-medium">
                 <i class="fas fa-sun"></i>
               </span>
@@ -302,7 +302,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="dropdown is-hoverable" id="selectedbutton">
           <div class="dropdown-trigger">
             <button class="button topbutton" aria-haspopup="true" aria-controls="dropdown-menu">
@@ -312,9 +312,10 @@
               <span id="selectbuttontext">1 Selected</span>
             </button>
           </div>
-          <div class="dropdown-menu"role="menu">
+          <div class="dropdown-menu" role="menu">
             <div class="dropdown-content" id="sortContent">
-              <a href="#" class="dropdown-item" value="Alphabetical" onClick="javascript:EntryPoint.selectFunction('delete')">
+              <a href="#" class="dropdown-item" value="Alphabetical"
+                onClick="javascript:EntryPoint.selectFunction('delete')">
                 Delete
               </a>
             </div>
@@ -483,7 +484,8 @@
           <button class="delete" id="viewCloseButton" style="margin-right:5%; margin-top:5%"></button>
           <div class="cardtop">
             <h1 class="title ml-6 mt-6" id="viewPositionTitle"></h1>
-            <h3 class="subtitle mx-6 mb-4" id="viewCompanyTitle"></p>
+            <h3 class="subtitle mx-6 mb-4" id="viewCompanyTitle">
+              </p>
           </div>
           <div hidden class="notification is-danger has-text-centered" id="viewInvalidInput" style="margin: 10px;">
           </div>
@@ -497,7 +499,7 @@
                   <span class="icon is-small"><i class="fas fa-map" aria-hidden="true"></i></span>
                   <span>Map</span>
                 </a></li>
-                <!--
+              <!--
                 <li id="viewEventsButton"><a>
                   <span class="icon is-small"><i class="fas fa-address-book" aria-hidden="true"></i></span>
                   <span>Events</span>
@@ -666,53 +668,52 @@
 
       let locationField = document.getElementById('viewLocationField');
       document.getElementById("viewMapButton").addEventListener("click", () => {
-          if (document.getElementById('viewMapButton').classList.contains('is-active')) {
-            return;
-          }
-          fetch(
-            "https://maps.googleapis.com/maps/api/geocode/json?address=" +
-            locationField.value +
-            "&key=AIzaSyDovyHEqrLYWiEiqACyLfryUo7n9AmPYjg"
-          )
-            .then((response) => response.json())
-            .then((data) => {
-              const latitude = data.results[0].geometry.location.lat;
-              const longitude = data.results[0].geometry.location.lng;
+        if (document.getElementById('viewMapButton').classList.contains('is-active')) {
+          return;
+        }
+        fetch(
+          "https://maps.googleapis.com/maps/api/geocode/json?address=" +
+          locationField.value +
+          "&key=AIzaSyDovyHEqrLYWiEiqACyLfryUo7n9AmPYjg"
+        )
+          .then((response) => response.json())
+          .then((data) => {
+            const latitude = data.results[0].geometry.location.lat;
+            const longitude = data.results[0].geometry.location.lng;
 
-              const loc = { lat: latitude, lng: longitude };
-              const map = new google.maps.Map(
-                document.getElementById("locationMap"),
-                {
-                  zoom: 10,
-                  center: loc,
-                }
-              );
-              const marker = new google.maps.Marker({
-                position: loc,
-                map: map,
-              });
-            }).catch((e) => {
-              document.getElementById('locationMap').style.display = "none";
-              document.getElementById('mapErrorText').style.display = "block";
+            const loc = { lat: latitude, lng: longitude };
+            const map = new google.maps.Map(
+              document.getElementById("locationMap"),
+              {
+                zoom: 10,
+                center: loc,
+              }
+            );
+            const marker = new google.maps.Marker({
+              position: loc,
+              map: map,
             });
-          document.getElementById('locationMap').style.display = "block";
-          document.getElementById('locationMap').style.width = document.getElementById('viewappform').offsetWidth;
-          document.getElementById('locationMap').style.height = document.getElementById('viewappform').offsetHeight;
-          document.getElementById('mapErrorText').style.display = "none";
-          document.getElementById("viewPage").style.display = "none";
-          //document.getElementById("viewEvents").style.display = "none";
-          document.getElementById("viewMap").style.display = "block";
-          document.getElementById("viewMapButton").classList.add("is-active");
-          document.getElementById('locationMap').classList.add('is-active');
-          document.getElementById("viewInfoButton").classList.remove("is-active");
-          //document.getElementById("viewEventsButton").classList.remove("is-active");
-        });
+          }).catch((e) => {
+            document.getElementById('locationMap').style.display = "none";
+            document.getElementById('mapErrorText').style.display = "block";
+          });
+        document.getElementById('locationMap').style.display = "block";
+        document.getElementById('locationMap').style.width = document.getElementById('viewappform').offsetWidth;
+        document.getElementById('locationMap').style.height = document.getElementById('viewappform').offsetHeight;
+        document.getElementById('mapErrorText').style.display = "none";
+        document.getElementById("viewPage").style.display = "none";
+        //document.getElementById("viewEvents").style.display = "none";
+        document.getElementById("viewMap").style.display = "block";
+        document.getElementById("viewMapButton").classList.add("is-active");
+        document.getElementById('locationMap').classList.add('is-active');
+        document.getElementById("viewInfoButton").classList.remove("is-active");
+        //document.getElementById("viewEventsButton").classList.remove("is-active");
+      });
     }
   </script>
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCIfvZmx63UjGv6PVhGhSBzYWrgXVSZNK0&libraries=places&callback=initAutocomplete"
     async defer></script>
   <script type="text/javascript" src="bundles/applications.bundle.js"></script>
-  <script type="text/javascript" src="bundles/nightmode.bundle.js"></script>
 
 </html>

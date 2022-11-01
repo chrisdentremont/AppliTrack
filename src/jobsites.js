@@ -1,7 +1,15 @@
 renderTheme();
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
-import { renderTheme } from "./nightmode.js";
+import { renderTheme, setLightMode, setNightMode } from "./nightmode.js";
+
+function callNightMode() {
+  setNightMode();
+}
+
+function callLightMode() {
+  setLightMode();
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
@@ -576,4 +584,4 @@ function addFilterTags() {
   CreateJobSiteTable();
 }
 
-export { logout, addFilterTags };
+export { logout, addFilterTags, callLightMode, callNightMode };

@@ -2,7 +2,15 @@ renderTheme();
 import { initializeApp } from "firebase/app";
 import { getAuth, onAuthStateChanged, signOut } from "firebase/auth";
 import { getFirestore, doc, getDoc } from "firebase/firestore";
-import { renderTheme } from "./nightmode.js";
+import { renderTheme, setLightMode, setNightMode } from "./nightmode.js";
+
+function callNightMode() {
+  setNightMode();
+}
+
+function callLightMode() {
+  setLightMode();
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
@@ -131,4 +139,4 @@ function initMap(applications) {
     document.querySelector("nav").offsetHeight * 2;
 }
 
-export { logout };
+export { logout, callLightMode, callNightMode };

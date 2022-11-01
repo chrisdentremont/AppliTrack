@@ -8,7 +8,6 @@ module.exports = {
     profile: "./src/profile.js",
     jobsites: "./src/jobsites.js",
     applicationmap: "./src/applicationmap.js",
-    nightmode: "./src/nightmode.js",
   },
   output: {
     path: path.resolve(__dirname, "dist/bundles"),

@@ -9,7 +9,15 @@ import {
   deleteUser,
 } from "firebase/auth";
 import { getDoc, deleteDoc, doc, getFirestore } from "firebase/firestore";
-import { renderTheme } from "./nightmode.js";
+import { renderTheme, setLightMode, setNightMode } from "./nightmode.js";
+
+function callNightMode() {
+  setNightMode();
+}
+
+function callLightMode() {
+  setLightMode();
+}
 
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
@@ -118,4 +126,12 @@ changeNameModalDelete.addEventListener("click", () => {
   modalBackground.click();
 });
 
-export { logout, changeName, changePass, deleteAccount, deleteAUser };
+export {
+  logout,
+  changeName,
+  changePass,
+  deleteAccount,
+  deleteAUser,
+  callLightMode,
+  callNightMode,
+};
