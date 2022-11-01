@@ -82,7 +82,8 @@ html {
 #settingsbutton,
 #addapplication,
 #searchbar,
-#sortbutton {
+#sortbutton,
+#selectedbutton {
   margin: 5px;
 }
 
