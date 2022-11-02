@@ -37,6 +37,23 @@ const auth = getAuth();
 const db = getFirestore();
 const provider = new GoogleAuthProvider();
 
+function openProfileBar() {
+  document.querySelector("#profilename").textContent =
+    "Hi, " + auth.currentUser.displayName + "!";
+  document.querySelector("#profileemail").textContent = auth.currentUser.email;
+  document.querySelector("#profileimage").src = auth.currentUser.photoURL;
+  document.querySelector("#profilemenu").style.display = "block";
+}
+
+document.onclick = function (e) {
+  if (
+    !document.querySelector("#profilemenu").contains(e.target) &&
+    !document.querySelector("#profilelink").contains(e.target)
+  ) {
+    document.querySelector("#profilemenu").style.display = "none";
+  }
+};
+
 const signUpButton = document.querySelector("#signupbutton");
 const applicationsButton = document.querySelector("#applicationsbutton");
 
@@ -95,6 +112,13 @@ onAuthStateChanged(auth, (user) => {
     signUpButton.style.display = "none";
     applicationsButton.style.display = "inline";
     profileLink.style.display = "flex";
+    if (user.photoURL == null) {
+      updateProfile(cred.user, {
+        photoURL:
+          "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg",
+      });
+    }
+    document.querySelector("#profilelinkimage").src = user.photoURL;
   }
 });
 
@@ -151,6 +175,18 @@ signupForm.addEventListener("submit", (e) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         sendEmailVerification(auth.currentUser).then(() => {
+          let isGoogle = false;
+          cred.user.providerData.forEach((element) => {
+            if (element.providerId == "google.com") {
+              isGoogle = true;
+            }
+          });
+          if (!isGoogle) {
+            updateProfile(cred.user, {
+              photoURL:
+                "https://upload.wikimedia.org/wikipedia/commons/2/2c/Default_pfp.svg",
+            });
+          }
           updateProfile(cred.user, {
             displayName: username,
           }).then(() => {
@@ -167,8 +203,15 @@ signupForm.addEventListener("submit", (e) => {
       })
       .catch((err) => {
         accountCreate.style.display = "none";
-        invalidPassword.textContent =
-          err.message.substring(10, err.message.length - 22) + ".";
+        if (err.message.includes("weak-password")) {
+          invalidPassword.textContent =
+            err.message.substring(10, err.message.length - 22) + ".";
+        } else if (err.message.includes("email-already-in-use")) {
+          invalidPassword.textContent =
+            "Account already exists with this email.";
+        } else {
+          invalidPassword.textContent = "Unknown error occurred.";
+        }
         invalidPassword.style.display = "block";
       });
   } else {
@@ -271,4 +314,5 @@ export {
   logout,
   callLightMode,
   callNightMode,
+  openProfileBar,
 };

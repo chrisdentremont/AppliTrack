@@ -213,6 +213,15 @@ function renderTheme() {
         inputs[i].style.backgroundColor = COLOR_3;
         inputs[i].style.color = TEXT_COLOR;
       }
+      var panels = document.querySelectorAll(".panel");
+      for (var i = 0; i < panels.length; i++) {
+        panels[i].style.backgroundColor = COLOR_2;
+      }
+      var panelHeadings = document.querySelectorAll(".panel-heading");
+      for (var i = 0; i < panelHeadings.length; i++) {
+        panelHeadings[i].style.backgroundColor = COLOR_3;
+        panelHeadings[i].style.color = TEXT_COLOR;
+      }
       //#endregion
     } catch {}
   } else {
@@ -226,9 +235,6 @@ function renderTheme() {
         .classList.add("has-background-white");
       document
         .getElementById("forgPassModalColor")
-        .classList.add("has-background-white");
-      document
-        .getElementById("resetNameModalColor")
         .classList.add("has-background-white");
       //#endregion
     } catch {}
@@ -254,6 +260,9 @@ function renderTheme() {
       //#region Account Page
       document
         .getElementById("deleteAccountModalColor")
+        .classList.add("has-background-white");
+      document
+        .getElementById("resetNameModalColor")
         .classList.add("has-background-white");
       //#endregion
     } catch {}

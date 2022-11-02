@@ -33,6 +33,23 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 
+function openProfileBar() {
+  document.querySelector("#profilename").textContent =
+    "Hi, " + auth.currentUser.displayName + "!";
+  document.querySelector("#profileemail").textContent = auth.currentUser.email;
+  document.querySelector("#profileimage").src = auth.currentUser.photoURL;
+  document.querySelector("#profilemenu").style.display = "block";
+}
+
+document.onclick = function (e) {
+  if (
+    !document.querySelector("#profilemenu").contains(e.target) &&
+    !document.querySelector("#profilelink").contains(e.target)
+  ) {
+    document.querySelector("#profilemenu").style.display = "none";
+  }
+};
+
 var userSettings = {};
 var selectedCards = [];
 document.querySelector("#selectedbutton").style.display = "none";
@@ -44,6 +61,7 @@ var globalApplications;
 //Bring the user back to home page if not logged in
 onAuthStateChanged(auth, async (user) => {
   if (user) {
+    document.querySelector("#profilelinkimage").src = user.photoURL;
     const userRef = await getDoc(doc(db, "users", user.uid));
     var applications = userRef.data();
     userSettings = applications["userSettings"];
@@ -1532,4 +1550,6 @@ export {
   sortCards,
   callLightMode,
   callNightMode,
+  openProfileBar,
+  selectFunction,
 };

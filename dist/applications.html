@@ -55,23 +55,38 @@
                 <i class="fas fa-sun"></i>
               </span>
             </a>
-            <a href="profile.html" class="navbar-item" id="profilelink">
-              <span class="icon is-medium mr-1">
-                <i class="fas fa-user"></i>
-              </span>
-              Account
-            </a>
-            <a href="#" onclick="EntryPoint.logout()" class="navbar-item" id="logoutlink">
-              <span class="icon is-medium mr-1">
-                <i class="fas fa-sign-out-alt"></i>
-              </span>
-              Logout
+            <a onclick="EntryPoint.openProfileBar()" class="navbar-item" id="profilelink">
+              <figure class="image is-48x48">
+                <img class="is-rounded" id="profilelinkimage">
+              </figure>
             </a>
           </div>
         </div>
     </div>
     </nav>
     </div>
+
+    <nav class="panel" id="profilemenu" style="display: none;">
+      <p class="panel-heading" id="profilename"></p>
+      <figure class="image is-96x96">
+        <img class="is-rounded" id="profileimage">
+      </figure>
+      <p class="mr-3 ml-3" id="profileemail"></p>
+      <div class="panel-block">
+      </div>
+      <a href="profile.html" class="navbar-item">
+        <span class="icon is-medium mr-1">
+          <i class="fas fa-user"></i>
+        </span>
+        Manage Account
+      </a>
+      <a href="#" onclick="EntryPoint.logout()" class="navbar-item" id="logoutlink">
+        <span class="icon is-medium mr-1">
+          <i class="fas fa-sign-out-alt"></i>
+        </span>
+        Log Out
+      </a>
+    </nav>
 
     <div class="hero-body" id="application-body">
       <h1 class="title" id="appTitle"></h1>

@@ -33,6 +33,23 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 
+function openProfileBar() {
+  document.querySelector("#profilename").textContent =
+    "Hi, " + auth.currentUser.displayName + "!";
+  document.querySelector("#profileemail").textContent = auth.currentUser.email;
+  document.querySelector("#profileimage").src = auth.currentUser.photoURL;
+  document.querySelector("#profilemenu").style.display = "block";
+}
+
+document.onclick = function (e) {
+  if (
+    !document.querySelector("#profilemenu").contains(e.target) &&
+    !document.querySelector("#profilelink").contains(e.target)
+  ) {
+    document.querySelector("#profilemenu").style.display = "none";
+  }
+};
+
 //Reset Name
 const resetNameForm = document.querySelector("#nameresetform");
 const resetNameModal = document.querySelector("#resetnamemodal");
@@ -53,6 +70,8 @@ const emailText = document.querySelector("#emailText");
 //Display profile information or kick user to index.html if not signed in
 onAuthStateChanged(auth, (user) => {
   if (user) {
+    document.querySelector("#profilelinkimage").src = user.photoURL;
+    document.querySelector("#profilebodyimage").src = user.photoURL;
     nameText.textContent = "Hello, " + user.displayName + "!";
     emailText.textContent = user.email;
     getDoc(doc(db, "users", user.uid)).then((ref) => {
@@ -60,6 +79,7 @@ onAuthStateChanged(auth, (user) => {
       delete applications["userSettings"];
       document.getElementById("applicationText").textContent =
         "" + Object.keys(applications).length + " Applications";
+      document.querySelector("#profileimage").src = user.photoURL;
     });
   } else {
     window.location.href = "index.html";
@@ -134,4 +154,5 @@ export {
   deleteAUser,
   callLightMode,
   callNightMode,
+  openProfileBar,
 };

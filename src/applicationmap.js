@@ -26,8 +26,26 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 const db = getFirestore();
 
+function openProfileBar() {
+  document.querySelector("#profilename").textContent =
+    "Hi, " + auth.currentUser.displayName + "!";
+  document.querySelector("#profileemail").textContent = auth.currentUser.email;
+  document.querySelector("#profileimage").src = auth.currentUser.photoURL;
+  document.querySelector("#profilemenu").style.display = "block";
+}
+
+document.onclick = function (e) {
+  if (
+    !document.querySelector("#profilemenu").contains(e.target) &&
+    !document.querySelector("#profilelink").contains(e.target)
+  ) {
+    document.querySelector("#profilemenu").style.display = "none";
+  }
+};
+
 onAuthStateChanged(auth, async (user) => {
   if (user) {
+    document.querySelector("#profilelinkimage").src = user.photoURL;
     const userRef = await getDoc(doc(db, "users", user.uid));
     var applications = userRef.data();
     //userSettings = applications["userSettings"];
@@ -139,4 +157,4 @@ function initMap(applications) {
     document.querySelector("nav").offsetHeight * 2;
 }
 
-export { logout, callLightMode, callNightMode };
+export { logout, callLightMode, callNightMode, openProfileBar };

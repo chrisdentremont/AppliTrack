@@ -11,8 +11,9 @@ AppliTrack is a web application that allows you to keep track of your job applic
 
 ## Changelog
 
-### November 1st, 2022 (v1.1.6)
+### November 2nd, 2022 (v1.1.6)
 
+- Added pop-out profile menu and profile image
 - Changed night mode colors to be a bit more appealing
 
 ### August 21st, 2022 (v.1.1.5)
