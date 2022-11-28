@@ -1,5 +1,4 @@
 document.querySelector("html").classList.remove("is-clipped");
-
 import { initializeApp } from "firebase/app";
 import { getAuth, signOut, onAuthStateChanged } from "firebase/auth";
 import {
@@ -11,6 +10,8 @@ import {
 } from "firebase/firestore";
 import { renderTheme, setLightMode, setNightMode } from "./nightmode.js";
 
+//#region Theme Functions
+
 function callNightMode() {
   setNightMode();
 }
@@ -19,6 +20,9 @@ function callLightMode() {
   setLightMode();
 }
 
+//#endregion
+
+//#region Firebase
 const firebaseConfig = {
   apiKey: "AIzaSyAvbph3Qpz8w_ZERUZQ-Oh5YEyZI-ulCWQ",
   authDomain: "applitrack.firebaseapp.com",
@@ -84,6 +88,10 @@ function logout() {
   window.location.href = "index.html";
 }
 
+//#endregion
+
+//#region DOM Elements
+
 const cardList = document.querySelector("#cards");
 const appTable = document.querySelector("#applicationtable");
 
@@ -132,27 +140,9 @@ const deleteAppCloseButton = document.querySelector("#appDeleteCloseButton");
 
 var appsToDisplay = [];
 
-/**
- * A function to check if a given date is two weeks or more away
- * from the current date.
- */
-function isDateAgo(date, timeframe) {
-  var time = 0;
-  var dateTime = 0;
-  if (timeframe == "3 Days") {
-    time = 4 * 24 * 60 * 60 * 1000;
-  } else if (timeframe == "5 Days") {
-    time = 6 * 24 * 60 * 60 * 1000;
-  } else if (timeframe == "1 Week") {
-    time = 8 * 24 * 60 * 60 * 1000;
-  } else {
-    time = 15 * 24 * 60 * 60 * 1000;
-  }
+//#endregion
 
-  dateTime = new Date().getTime() - time;
-
-  return dateTime > date;
-}
+//#region Application Load Functions
 
 /**
  * Function that displays application cards on screen through given
@@ -594,6 +584,54 @@ function DisplayApplicationCards(applications) {
   renderTheme();
 }
 
+/**
+ * A function that runs when the user is authenticated and displays
+ * application cards
+ *
+ * The function is passed all of the application data from
+ * the current user's database document
+ *
+ * @param {*} applications Applications to display
+ */
+function windowLoad(applications) {
+  /*
+  0 - Company Name
+  1 - Position
+  2 - Salary
+  3 - Job URL
+  4 - Location
+  5 - Job Type
+  6 - Date
+  7 - Followed Up
+  8 - Color
+  9 - Status
+  10 - Notes
+  */
+
+  document.getElementById("viewPage").style.display = "block";
+  document.getElementById("viewMap").style.display = "none";
+  //Convert applications from database into Strings for displaying
+  globalApplications = Object.entries(applications);
+  let applicationObject = {};
+  for (var i = 0, element; (element = globalApplications[i++]); ) {
+    applicationObject[element[0]] = element[1];
+  }
+  appsToDisplay = Object.entries(applicationObject);
+
+  document.getElementById("appTitle").textContent =
+    auth.currentUser.displayName +
+    "'s Applications (" +
+    Object.keys(applicationObject).length +
+    ")";
+
+  appsToDisplay = appsToDisplay.sort(sortByAZ);
+  DisplayApplicationCards(appsToDisplay);
+}
+
+//#endregion
+
+//#region Select Functions
+
 const selectCard = function () {
   let id = this.id.substring(5);
   if (!this.checked) {
@@ -642,195 +680,9 @@ async function selectFunction(method) {
   }
 }
 
-/**
- * Comparator function to sort the application cards alphabetically.
- *
- * @param {*} a First title to compare.
- * @param {*} b Second title to compare.
- * @returns Comparison result.
- */
-function sortByAZ(a, b) {
-  var aData = a[1];
-  var bData = b[1];
+//#endregion
 
-  if (aData[0].toLowerCase() < bData[0].toLowerCase()) {
-    return -1;
-  }
-  if (bData[0].toLowerCase() < aData[0].toLowerCase()) {
-    return 1;
-  }
-  return 0;
-}
-
-/**
- * Comparator function to sort the application cards alphabetically.
- *
- * @param {*} a First title to compare.
- * @param {*} b Second title to compare.
- * @returns Comparison result.
- */
-function sortByZA(a, b) {
-  var aData = a[1];
-  var bData = b[1];
-
-  if (aData[0].toLowerCase() < bData[0].toLowerCase()) {
-    return 1;
-  }
-  if (bData[0].toLowerCase() < aData[0].toLowerCase()) {
-    return -1;
-  }
-  return 0;
-}
-
-/**
- * Comparator function to sort the application cards by date.
- *
- * @param {*} a First date to compare.
- * @param {*} b Second date to compare.
- * @returns Comparison result.
- */
-function sortByDateRecent(a, b) {
-  var aData = a[1];
-  var bData = b[1];
-
-  if (aData[6] < bData[6]) {
-    return 1;
-  }
-  if (bData[6] < aData[6]) {
-    return -1;
-  }
-  return 0;
-}
-
-/**
- * Comparator function to sort the application cards by date.
- *
- * @param {*} a First date to compare.
- * @param {*} b Second date to compare.
- * @returns Comparison result.
- */
-function sortByDateLeastRecent(a, b) {
-  var aData = a[1];
-  var bData = b[1];
-
-  if (aData[6] < bData[6]) {
-    return -1;
-  }
-  if (bData[6] < aData[6]) {
-    return 1;
-  }
-  return 0;
-}
-
-/**
- * Comparator function to sort the application cards by salary value.
- *
- * @param {*} a First date to compare.
- * @param {*} b Second date to compare.
- * @returns Comparison result.
- */
-function sortBySalaryHtoL(a, b) {
-  var aData = a[1];
-  var bData = b[1];
-
-  if (aData[2] < bData[2]) {
-    return 1;
-  }
-  if (bData[2] < aData[2]) {
-    return -1;
-  }
-  return 0;
-}
-
-/**
- * Comparator function to sort the application cards by salary value.
- *
- * @param {*} a First date to compare.
- * @param {*} b Second date to compare.
- * @returns Comparison result.
- */
-function sortBySalaryLtoH(a, b) {
-  var aData = a[1];
-  var bData = b[1];
-
-  if (aData[2] < bData[2]) {
-    return -1;
-  }
-  if (bData[2] < aData[2]) {
-    return 1;
-  }
-  return 0;
-}
-
-/**
- * Comparator function to sort the application cards by colors.
- *
- * @param {*} a First date to compare.
- * @param {*} b Second date to compare.
- * @returns Comparison result.
- */
-function sortByColor(a, b) {
-  var aData = a[1];
-  var bData = b[1];
-
-  if (aData[8] == "None") {
-    return 1;
-  }
-  if (bData[8] == "None") {
-    return -1;
-  }
-  if (aData[8] < bData[8]) {
-    return -1;
-  }
-  if (bData[8] < aData[8]) {
-    return 1;
-  }
-  return 0;
-}
-
-/**
- * A function that runs when the user is authenticated and displays
- * application cards
- *
- * The function is passed all of the application data from
- * the current user's database document
- *
- * @param {*} applications Applications to display
- */
-function windowLoad(applications) {
-  /*
-  0 - Company Name
-  1 - Position
-  2 - Salary
-  3 - Job URL
-  4 - Location
-  5 - Job Type
-  6 - Date
-  7 - Followed Up
-  8 - Color
-  9 - Status
-  10 - Notes
-  */
-
-  document.getElementById("viewPage").style.display = "block";
-  document.getElementById("viewMap").style.display = "none";
-  //Convert applications from database into Strings for displaying
-  globalApplications = Object.entries(applications);
-  let applicationObject = {};
-  for (var i = 0, element; (element = globalApplications[i++]); ) {
-    applicationObject[element[0]] = element[1];
-  }
-  appsToDisplay = Object.entries(applicationObject);
-
-  document.getElementById("appTitle").textContent =
-    auth.currentUser.displayName +
-    "'s Applications (" +
-    Object.keys(applicationObject).length +
-    ")";
-
-  appsToDisplay = appsToDisplay.sort(sortByAZ);
-  DisplayApplicationCards(appsToDisplay);
-}
+//#region Button Listeners
 
 settingsButton.addEventListener("click", () => {
   document.querySelector("html").classList.add("is-clipped");
@@ -864,11 +716,6 @@ settingsButton.addEventListener("click", () => {
   settingsCardDisplay.value = userSettings[2];
 });
 
-settingsModalBg.addEventListener("click", () => {
-  document.querySelector("html").classList.remove("is-clipped");
-  settingsModal.classList.remove("is-active");
-});
-
 /**
  * Shows application form for user to submit data.
  */
@@ -883,44 +730,9 @@ newAppButton.addEventListener("click", () => {
   }
 });
 
-/**
- * Clears application form and disables it when user clicks away.
- */
-modalBg.addEventListener("click", () => {
-  document.querySelector("html").classList.remove("is-clipped");
-  modal.classList.remove("is-active");
-  applicationForm.reset();
-  invalidInput.style.display = "none";
-});
+//#endregion
 
-/**
- * A function that sorts the application cards by a given criteria.
- *
- * The function uses the given parameter to determine how to
- * sort the cards, either alphabetically or by date.
- *
- * @param {*} method A parameter to determine how to sort the cards.
- */
-function sortCards(method) {
-  if (method == "az") {
-    appsToDisplay = appsToDisplay.sort(sortByAZ);
-  } else if (method == "za") {
-    appsToDisplay = appsToDisplay.sort(sortByZA);
-  } else if (method == "datemost") {
-    appsToDisplay = appsToDisplay.sort(sortByDateRecent);
-  } else if (method == "dateleast") {
-    appsToDisplay = appsToDisplay.sort(sortByDateLeastRecent);
-  } else if (method == "salaryhtol") {
-    appsToDisplay = appsToDisplay.sort(sortBySalaryHtoL);
-  } else if (method == "salaryltoh") {
-    appsToDisplay = appsToDisplay.sort(sortBySalaryLtoH);
-  } else if (method == "color") {
-    appsToDisplay = appsToDisplay.sort(sortByColor);
-  } else {
-    appsToDisplay = appsToDisplay.sort(sortByAZ);
-  }
-  DisplayApplicationCards(appsToDisplay);
-}
+//#region Form Functions
 
 /**
  * Gets the form results from settings form and applies it to the user settings
@@ -1066,6 +878,10 @@ viewAppForm.addEventListener("submit", async (e) => {
   }
 });
 
+//#endregion
+
+//#region Search Functions
+
 /**
  * A function to properly apply changes to the display structure of
  * the search dropdown.
@@ -1081,6 +897,7 @@ function selectSearch(value) {
   var searchBar = document.getElementById("appsearchbar");
   spanText.textContent = value;
 
+  //#region Select Search
   if (value == "Company Name") {
     document.getElementById("appsearchbar").value = "";
     DisplayApplicationCards(appsToDisplay);
@@ -1176,6 +993,7 @@ function selectSearch(value) {
     searchPStatus.style.display = "none";
     searchColor.style.display = "block";
   }
+  //#endregion
   renderTheme();
 }
 
@@ -1191,6 +1009,7 @@ function selectSearch(value) {
  * which criteria to search for in certain conditions
  */
 function search_applications(selectValue) {
+  //#region Search Applications
   var spanText = document.getElementById("searchText");
   if (spanText.textContent == "Company Name") {
     let input = document.getElementById("appsearchbar").value.toLowerCase();
@@ -1462,7 +1281,191 @@ function search_applications(selectValue) {
       DisplayApplicationCards(newApplications);
     }
   }
+  //#endregion
 }
+
+//#endregion
+
+//#region Sort Functions
+
+/**
+ * Comparator function to sort the application cards alphabetically.
+ *
+ * @param {*} a First title to compare.
+ * @param {*} b Second title to compare.
+ * @returns Comparison result.
+ */
+function sortByAZ(a, b) {
+  var aData = a[1];
+  var bData = b[1];
+
+  if (aData[0].toLowerCase() < bData[0].toLowerCase()) {
+    return -1;
+  }
+  if (bData[0].toLowerCase() < aData[0].toLowerCase()) {
+    return 1;
+  }
+  return 0;
+}
+
+/**
+ * Comparator function to sort the application cards alphabetically.
+ *
+ * @param {*} a First title to compare.
+ * @param {*} b Second title to compare.
+ * @returns Comparison result.
+ */
+function sortByZA(a, b) {
+  var aData = a[1];
+  var bData = b[1];
+
+  if (aData[0].toLowerCase() < bData[0].toLowerCase()) {
+    return 1;
+  }
+  if (bData[0].toLowerCase() < aData[0].toLowerCase()) {
+    return -1;
+  }
+  return 0;
+}
+
+/**
+ * Comparator function to sort the application cards by date.
+ *
+ * @param {*} a First date to compare.
+ * @param {*} b Second date to compare.
+ * @returns Comparison result.
+ */
+function sortByDateRecent(a, b) {
+  var aData = a[1];
+  var bData = b[1];
+
+  if (aData[6] < bData[6]) {
+    return 1;
+  }
+  if (bData[6] < aData[6]) {
+    return -1;
+  }
+  return 0;
+}
+
+/**
+ * Comparator function to sort the application cards by date.
+ *
+ * @param {*} a First date to compare.
+ * @param {*} b Second date to compare.
+ * @returns Comparison result.
+ */
+function sortByDateLeastRecent(a, b) {
+  var aData = a[1];
+  var bData = b[1];
+
+  if (aData[6] < bData[6]) {
+    return -1;
+  }
+  if (bData[6] < aData[6]) {
+    return 1;
+  }
+  return 0;
+}
+
+/**
+ * Comparator function to sort the application cards by salary value.
+ *
+ * @param {*} a First date to compare.
+ * @param {*} b Second date to compare.
+ * @returns Comparison result.
+ */
+function sortBySalaryHtoL(a, b) {
+  var aData = a[1];
+  var bData = b[1];
+
+  if (aData[2] < bData[2]) {
+    return 1;
+  }
+  if (bData[2] < aData[2]) {
+    return -1;
+  }
+  return 0;
+}
+
+/**
+ * Comparator function to sort the application cards by salary value.
+ *
+ * @param {*} a First date to compare.
+ * @param {*} b Second date to compare.
+ * @returns Comparison result.
+ */
+function sortBySalaryLtoH(a, b) {
+  var aData = a[1];
+  var bData = b[1];
+
+  if (aData[2] < bData[2]) {
+    return -1;
+  }
+  if (bData[2] < aData[2]) {
+    return 1;
+  }
+  return 0;
+}
+
+/**
+ * Comparator function to sort the application cards by colors.
+ *
+ * @param {*} a First date to compare.
+ * @param {*} b Second date to compare.
+ * @returns Comparison result.
+ */
+function sortByColor(a, b) {
+  var aData = a[1];
+  var bData = b[1];
+
+  if (aData[8] == "None") {
+    return 1;
+  }
+  if (bData[8] == "None") {
+    return -1;
+  }
+  if (aData[8] < bData[8]) {
+    return -1;
+  }
+  if (bData[8] < aData[8]) {
+    return 1;
+  }
+  return 0;
+}
+
+/**
+ * A function that sorts the application cards by a given criteria.
+ *
+ * The function uses the given parameter to determine how to
+ * sort the cards, either alphabetically or by date.
+ *
+ * @param {*} method A parameter to determine how to sort the cards.
+ */
+function sortCards(method) {
+  if (method == "az") {
+    appsToDisplay = appsToDisplay.sort(sortByAZ);
+  } else if (method == "za") {
+    appsToDisplay = appsToDisplay.sort(sortByZA);
+  } else if (method == "datemost") {
+    appsToDisplay = appsToDisplay.sort(sortByDateRecent);
+  } else if (method == "dateleast") {
+    appsToDisplay = appsToDisplay.sort(sortByDateLeastRecent);
+  } else if (method == "salaryhtol") {
+    appsToDisplay = appsToDisplay.sort(sortBySalaryHtoL);
+  } else if (method == "salaryltoh") {
+    appsToDisplay = appsToDisplay.sort(sortBySalaryLtoH);
+  } else if (method == "color") {
+    appsToDisplay = appsToDisplay.sort(sortByColor);
+  } else {
+    appsToDisplay = appsToDisplay.sort(sortByAZ);
+  }
+  DisplayApplicationCards(appsToDisplay);
+}
+
+//#endregion
+
+//#region Edit Functions
 
 /**
  * A function that allows the user to edit an existing application
@@ -1511,6 +1514,25 @@ function editCard() {
   formSubmitButton.textContent = "Submit Changes";
 }
 
+//#endregion
+
+//#region Modal Closers
+
+settingsModalBg.addEventListener("click", () => {
+  document.querySelector("html").classList.remove("is-clipped");
+  settingsModal.classList.remove("is-active");
+});
+
+/**
+ * Clears application form and disables it when user clicks away.
+ */
+modalBg.addEventListener("click", () => {
+  document.querySelector("html").classList.remove("is-clipped");
+  modal.classList.remove("is-active");
+  applicationForm.reset();
+  invalidInput.style.display = "none";
+});
+
 /**
  * Modal close buttons
  */
@@ -1541,6 +1563,34 @@ viewCloseButton.addEventListener("click", () => {
   const viewInvalidInput = document.getElementById("viewInvalidInput");
   viewInvalidInput.style.display = "none";
 });
+
+//#endregion
+
+//#region Helper Functions
+
+/**
+ * A function to check if a given date is two weeks or more away
+ * from the current date.
+ */
+function isDateAgo(date, timeframe) {
+  var time = 0;
+  var dateTime = 0;
+  if (timeframe == "3 Days") {
+    time = 4 * 24 * 60 * 60 * 1000;
+  } else if (timeframe == "5 Days") {
+    time = 6 * 24 * 60 * 60 * 1000;
+  } else if (timeframe == "1 Week") {
+    time = 8 * 24 * 60 * 60 * 1000;
+  } else {
+    time = 15 * 24 * 60 * 60 * 1000;
+  }
+
+  dateTime = new Date().getTime() - time;
+
+  return dateTime > date;
+}
+
+//#endregion
 
 export {
   editCard,
